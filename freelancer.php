@@ -42,6 +42,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "emailusuario" => $row["emailusuario"],
               "cpfusuario" => $row["cpfusuario"],
               "senhausuario" => $row["senhausuario"],
+              "statususuario" => $row["statususuario"],
               "freelancerusuario" => $row["freelancerusuario"],
               "fotoperfilusuario" => $row["fotoperfilusuario"],
               "nomeservico" => array(

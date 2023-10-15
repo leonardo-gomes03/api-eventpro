@@ -120,7 +120,7 @@ parametros: {idprojeto}
 POST /proposta.php
 parametros: {
 	"codprojeto"
-        "codfreelancer":
+        "codfreelancer"
         "codservico"
         "statusproposta"
         "valorproposta"
@@ -187,7 +187,8 @@ reposta: [
 	"cpfusuario": "string",
 	"senhausuario": "string",
 	"freelancerusuario": "number",
-	"fotoperfilusuario": "blobl",
+        "statususuario": "number",
+	"fotoperfilusuario": "blob",
 	"nomeservico": [
 		{
 			"codservico": "number",
