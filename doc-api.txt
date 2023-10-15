@@ -1,0 +1,264 @@
+POST /usuario.php
+parametros: {}
+podem estar vazios: experienciausuario, fotoperfilusuario
+reposta: [
+{
+        "nomeusuario": "string",
+        "datanascusuario": "data",
+        "telefoneusuario": "string",
+        "generousuario": "string",
+        "emailusuario": "string",
+        "cpfusuario": "string",
+        "senhausuario": "string",
+        "statususuario": "number",
+        "freelancerusuario": "number",
+        "fotoperfilusuario": "blob",
+        "experienciausuario": "string",
+        "codservico": "number"
+}
+]
+
+GET /usuario.php
+parametros: {} // nenhum/vazio
+reposta: [
+{
+        "idusuario": "number",
+        "nomeusuario": "string",
+        "datanascusuario": "data",
+        "telefoneusuario": "string",
+        "generousuario": "string",
+        "emailusuario": "string",
+        "cpfusuario": "string",
+        "senhausuario": "string",
+        "statususuario": "number",
+        "freelancerusuario": "number",
+        "fotoperfilusuario": "blob",
+        "experienciausuario": "string"
+}
+]
+
+PUT /usuario.php
+parametros: {}
+podem estar vazios: experienciausuario, fotoperfilusuario
+reposta: [
+{
+        "idusuario": "number",
+        "nomeusuario": "string",
+        "datanascusuario": "data",
+        "telefoneusuario": "string",
+        "generousuario": "string",
+        "emailusuario": "string",
+        "cpfusuario": "string",
+        "senhausuario": "string",
+        "statususuario": "number",
+        "freelancerusuario": "number",
+        "fotoperfilusuario": "blob",
+        "experienciausuario": "string",
+        "codservico": "number"
+}
+]
+
+DELETE /usuario.php
+parametros: {}
+reposta: [
+{
+	"idusuario": "number"     
+}
+]
+
+
+
+
+POST /projeto.php
+parametros: {}
+podem estar vazios: descricaoprojeto
+reposta: [
+{
+        "codcliente": "number",
+        "nomeusuario": "string",
+        "codtipo": "number",
+        "horainicioprojeto": "time",
+        "horafimprojeto": "time",
+        "dataprojeto": "date",
+        "qtdpessoas": "number",
+        "cidadeprojeto": "string",
+        "descricaoprojeto": "string",
+	"codservico": "number"
+}
+]
+
+GET /projeto.php
+parametros: {}
+reposta: [
+{
+        "idprojeto": "number",
+        "codcliente": "number",
+        "nomeusuario": "string",
+        "codtipo": "number",
+        "horainicioprojeto": "time",
+        "horafimprojeto": "time",
+        "dataprojeto": "date",
+        "qtdpessoas": "number",
+        "cidadeprojeto": "string",
+        "descricaoprojeto": "string",
+	"codservico": "number"
+}
+]
+
+
+PUT /projeto.php
+parametros: {}
+podem estar vazios: descricaoprojeto
+reposta: [
+{
+        "idprojeto": "number",
+        "codcliente": "number",
+        "nomeusuario": "string",
+        "codtipo": "number",
+        "horainicioprojeto": "time",
+        "horafimprojeto": "time",
+        "dataprojeto": "date",
+        "qtdpessoas": "number",
+        "cidadeprojeto": "string",
+        "descricaoprojeto": "string",
+	"codservico": "number"
+}
+]
+
+DELETE /projeto.php?idprojeto="number"
+parametros: {}
+reposta: [
+{
+        Projeto excluido com sucesso
+}
+]
+
+
+
+
+POST /proposta.php
+parametros: {}
+podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
+reposta: [
+{
+        "codprojeto": "number",
+        "codfreelancer": "number",
+        "codservico": "number",
+        "statusproposta": "string",
+        "valorproposta": "number",
+        "descricaoprposta": "string",
+        "notaavaliacao": "number",
+        "comentarioavaliacao": "string",
+        "fotoavaliacao": "blob"
+}
+]
+
+GET /proposta.php
+parametros: {}
+reposta: [
+{
+	"idproposta": "number",
+        "codprojeto": "number",
+        "codfreelancer": "number",
+        "codservico": "number",
+        "statusproposta": "string",
+        "valorproposta": "number",
+        "descricaoprposta": "string",
+        "notaavaliacao": "number",
+        "comentarioavaliacao": "string",
+        "fotoavaliacao": "blob"
+}
+]
+
+PUT /proposta.php
+parametros: {
+podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
+reposta: [
+{
+	"idproposta": "number",
+        "codprojeto": "number",
+        "codfreelancer": "number",
+        "codservico": "number",
+        "statusproposta": "string",
+        "valorproposta": "number",
+        "descricaoprposta": "string",
+        "notaavaliacao": "number",
+        "comentarioavaliacao": "string",
+        "fotoavaliacao": "blob"
+}
+]
+
+DELETE /proposta.php?idproposta="number"
+reposta: [
+{
+	Proposta exclúida com sucesso
+]
+
+
+
+GET /freelancer.php
+parametros: {} // nenhum/vazio
+reposta: [
+{
+	"idusuario": "number",
+	"nomeusuario": "string",
+	"datanascusuario": "date",
+	"telefoneusuario": "string",
+	"generousuario": "string",
+	"emailusuario": "string",
+	"cpfusuario": "string",
+	"senhausuario": "string",
+	"freelancerusuario": "number",
+	"fotoperfilusuario": "blobl",
+	"nomeservico": [
+		{
+			"codservico": "number",
+			"nomeservico": "string"
+		}
+	]
+}
+]
+
+
+
+GET /cliente.php
+parametros: {} // nenhum/vazio
+reposta: [
+{
+	"idusuario": "number",
+	"nomeusuario": "string",
+	"datanascusuario": "date",
+	"telefoneusuario": "string",
+	"generousuario": "string",
+	"experienciausuario": "string",
+	"emailusuario": "string",
+	"cpfusuario": "string",
+	"senhausuario": "string",
+	"freelancerusuario": "number",
+	"fotoperfilusuario": "blob"
+}
+]
+
+
+
+GET /tipo.php
+parametros: {} // nenhum/vazio
+reposta: [
+{
+	"idtipo": "number",
+	"nometipo": "string"
+}
+]
+
+
+
+GET /servico.php
+parametros: {} // nenhum/vazio
+reposta: [
+{
+	"idservico": "number",
+	"nomeservico": "string"
+}
+]
+
+
