@@ -1,22 +1,20 @@
 POST /usuario.php
-parametros: {}
-podem estar vazios: experienciausuario, fotoperfilusuario
-reposta: [
-{
-        "nomeusuario": "string",
-        "datanascusuario": "data",
-        "telefoneusuario": "string",
-        "generousuario": "string",
-        "emailusuario": "string",
-        "cpfusuario": "string",
-        "senhausuario": "string",
-        "statususuario": "number",
-        "freelancerusuario": "number",
-        "fotoperfilusuario": "blob",
-        "experienciausuario": "string",
-        "codservico": "number"
+parametros: {
+	"nomeusuario"
+        "datanascusuario"
+        "telefoneusuario"
+        "generousuario"
+        "emailusuario"
+        "cpfusuario"
+        "senhausuario"
+        "statususuario"
+        "freelancerusuario"
+        "fotoperfilusuario"
+        "experienciausuario"
+        "codservico"
 }
-]
+podem estar vazios: experienciausuario, fotoperfilusuario
+
 
 GET /usuario.php
 parametros: {} // nenhum/vazio
@@ -38,120 +36,101 @@ reposta: [
 ]
 
 PUT /usuario.php
-parametros: {}
-podem estar vazios: experienciausuario, fotoperfilusuario
-reposta: [
-{
-        "idusuario": "number",
-        "nomeusuario": "string",
-        "datanascusuario": "data",
-        "telefoneusuario": "string",
-        "generousuario": "string",
-        "emailusuario": "string",
-        "cpfusuario": "string",
-        "senhausuario": "string",
-        "statususuario": "number",
-        "freelancerusuario": "number",
-        "fotoperfilusuario": "blob",
-        "experienciausuario": "string",
-        "codservico": "number"
+parametros: {
+	"idusuario"
+	"nomeusuario"
+        "datanascusuario"
+        "telefoneusuario"
+        "generousuario"
+        "emailusuario"
+        "cpfusuario"
+        "senhausuario"
+        "statususuario"
+        "freelancerusuario"
+        "fotoperfilusuario"
+        "experienciausuario"
+        "codservico"
 }
-]
+podem estar vazios: experienciausuario, fotoperfilusuario
+
 
 DELETE /usuario.php
-parametros: {}
-reposta: [
-{
-	"idusuario": "number"     
-}
-]
+parametros: {idusuario}
 
 
 
 
 POST /projeto.php
-parametros: {}
-podem estar vazios: descricaoprojeto
-reposta: [
-{
-        "codcliente": "number",
-        "nomeusuario": "string",
-        "codtipo": "number",
-        "horainicioprojeto": "time",
-        "horafimprojeto": "time",
-        "dataprojeto": "date",
-        "qtdpessoas": "number",
-        "cidadeprojeto": "string",
-        "descricaoprojeto": "string",
-	"codservico": "number"
+parametros: {
+	"codcliente"
+        "codtipo"
+        "horainicioprojeto"
+        "horafimprojeto"
+        "dataprojeto"
+        "qtdpessoas"
+        "cidadeprojeto"
+        "descricaoprojeto"
+	"codservico"
 }
-]
+podem estar vazios: descricaoprojeto
+
 
 GET /projeto.php
-parametros: {}
+parametros: {} // nenhum/vazio
 reposta: [
 {
         "idprojeto": "number",
         "codcliente": "number",
-        "nomeusuario": "string",
+	"nomeusuario": "string",
         "codtipo": "number",
+	"nometipo": "string",
         "horainicioprojeto": "time",
         "horafimprojeto": "time",
         "dataprojeto": "date",
         "qtdpessoas": "number",
         "cidadeprojeto": "string",
         "descricaoprojeto": "string",
-	"codservico": "number"
+	"codservico": "number",
+	"nomeservico": "string"
 }
 ]
 
 
 PUT /projeto.php
-parametros: {}
-podem estar vazios: descricaoprojeto
-reposta: [
-{
-        "idprojeto": "number",
-        "codcliente": "number",
-        "nomeusuario": "string",
-        "codtipo": "number",
-        "horainicioprojeto": "time",
-        "horafimprojeto": "time",
-        "dataprojeto": "date",
-        "qtdpessoas": "number",
-        "cidadeprojeto": "string",
-        "descricaoprojeto": "string",
-	"codservico": "number"
+parametros: {
+	"idprojeto"
+	"codcliente"
+        "codtipo"
+        "horainicioprojeto"
+        "horafimprojeto"
+        "dataprojeto"
+        "qtdpessoas"
+        "cidadeprojeto"
+        "descricaoprojeto"
+	"codservico"
 }
-]
+podem estar vazios: descricaoprojeto
+
 
 DELETE /projeto.php?idprojeto="number"
-parametros: {}
-reposta: [
-{
-        Projeto excluido com sucesso
-}
-]
-
+parametros: {idprojeto}
 
 
 
 POST /proposta.php
-parametros: {}
-podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
-reposta: [
-{
-        "codprojeto": "number",
-        "codfreelancer": "number",
-        "codservico": "number",
-        "statusproposta": "string",
-        "valorproposta": "number",
-        "descricaoprposta": "string",
-        "notaavaliacao": "number",
-        "comentarioavaliacao": "string",
-        "fotoavaliacao": "blob"
+parametros: {
+	"codprojeto"
+        "codfreelancer":
+        "codservico"
+        "statusproposta"
+        "valorproposta"
+        "descricaoproposta"
+        "notaavaliacao"
+        "comentarioavaliacao"
+        "fotoavaliacao"
 }
-]
+podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
+
 
 GET /proposta.php
 parametros: {}
@@ -160,7 +139,9 @@ reposta: [
 	"idproposta": "number",
         "codprojeto": "number",
         "codfreelancer": "number",
+	"nomeusuario": "string",
         "codservico": "number",
+	"nomeservico": "string",
         "statusproposta": "string",
         "valorproposta": "number",
         "descricaoprposta": "string",
@@ -172,21 +153,18 @@ reposta: [
 
 PUT /proposta.php
 parametros: {
-podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
-reposta: [
-{
-	"idproposta": "number",
-        "codprojeto": "number",
-        "codfreelancer": "number",
-        "codservico": "number",
-        "statusproposta": "string",
-        "valorproposta": "number",
-        "descricaoprposta": "string",
-        "notaavaliacao": "number",
-        "comentarioavaliacao": "string",
-        "fotoavaliacao": "blob"
+	"idprojeto"
+	"codprojeto"
+        "codfreelancer":
+        "codservico"
+        "statusproposta"
+        "valorproposta"
+        "descricaoprposta"
+        "notaavaliacao"
+        "comentarioavaliacao"
+        "fotoavaliacao"
 }
-]
+podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
 
 DELETE /proposta.php?idproposta="number"
 reposta: [

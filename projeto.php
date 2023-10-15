@@ -5,7 +5,7 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Consulta SQL para selecionar todos os projetos com seus serviços
-      $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario
+      $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario, ps.codservico
               FROM tbprojeto pr
               INNER JOIN tbtipo t ON pr.codtipo = t.idtipo
               INNER JOIN tbprojetoservico ps ON pr.idprojeto = ps.codprojeto
@@ -35,12 +35,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "descricaoprojeto" => $row["descricaoprojeto"],
               "qtdpessoas" => $row["qtdpessoas"],
               "cidadeprojeto" => $row["cidadeprojeto"],
+              "codservico" => array(),
               "nomeservico" => array()
             );
           }
 
           // Adicione as informações do serviço a este projeto
           $projetos[$idprojeto]["nomeservico"][] = $row["nomeservico"];
+          $projetos[$idprojeto]["codservico"][] = $row["codservico"];
         }
 
         // Retorna os projetos em formato JSON
