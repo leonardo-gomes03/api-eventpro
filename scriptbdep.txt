@@ -1,0 +1,108 @@
+CREATE DATABASE bdeventpro;
+
+USE bdeventpro;
+
+CREATE TABLE tbusuario(
+idusuario INT Not null PRIMARY KEY AUTO_INCREMENT,
+nomeusuario VARCHAR(100) Not null,
+datanascusuario DATE Not null,
+telefoneusuario CHAR(14) Not null,
+generousuario CHAR(1) Not null,
+emailusuario VARCHAR(100) Not null UNIQUE,
+cpfusuario CHAR(14) Not null UNIQUE,
+senhausuario VARCHAR(20) Not null, 
+statususuario BOOLEAN NOT NULL,
+freelancerusuario boolean Not NULL,
+fotoperfilusuario blob NULL,
+experienciausuario VARCHAR(5000) NULL
+
+);
+
+CREATE TABLE tbservico(
+idservico INT PRIMARY KEY Not null AUTO_INCREMENT,
+nomeservico VARCHAR(100) Not null
+);
+
+CREATE TABLE tbfreelancerservico(
+codservico INT Not null,
+FOREIGN KEY (codservico) REFERENCES tbservico (idservico),
+codfreelancer INT Not null,
+FOREIGN KEY (codfreelancer) REFERENCES tbusuario (idusuario)
+);
+
+CREATE TABLE tbtipo(
+idtipo INT PRIMARY KEY Not null AUTO_INCREMENT,
+nometipo VARCHAR(100) Not null
+);
+
+CREATE TABLE  tbprojeto(
+idprojeto int PRIMARY KEY Not null AUTO_INCREMENT,
+codcliente INT Not null,
+FOREIGN KEY (codcliente) REFERENCES tbusuario (idusuario),
+codtipo INT Not null,
+FOREIGN KEY (codtipo) REFERENCES tbtipo (idtipo),
+horainicioprojeto TIME Not null,
+horafimprojeto TIME Not null,
+dataprojeto DATE Not null,
+qtdpessoas INTEGER Not null,
+cidadeprojeto VARCHAR(100) Not NULL,
+descricaoprojeto VARCHAR(2000) null
+);
+
+CREATE TABLE tbprojetoservico(
+codservico INT NOT null,
+FOREIGN KEY (codservico) REFERENCES tbservico (idservico),
+codprojeto INT NOT null,
+FOREIGN KEY (codprojeto) REFERENCES tbprojeto (idprojeto)
+);
+
+CREATE TABLE tbproposta(
+idproposta INTEGER PRIMARY KEY AUTO_INCREMENT Not null,
+codprojeto INT NOT NULL,
+FOREIGN KEY (codprojeto) REFERENCES tbprojeto (idprojeto),
+codfreelancer INT NOT NULL,
+FOREIGN KEY (codfreelancer) REFERENCES tbusuario (idusuario),
+codservico INT NOT NULL,
+FOREIGN KEY (codservico) REFERENCES tbfreelancerservico (codservico),
+statusproposta VARCHAR(100) Not NULL,
+valorproposta decimal(10,2) Not NULL,
+descricaoproposta VARCHAR(1000) NULL,
+notaavaliacao DECIMAL(2,2) null,
+comentarioavaliacao VARCHAR(2000) null,
+fotoavaliacao blob null
+);
+
+INSERT INTO tbservico(nomeservico)
+VALUES('Animador de festas'),
+('Acessoria de eventos'),
+('Bandas e/ou Cantores(as)'),
+('Bartenders'),
+('Brindes e lembrancinhas'),
+('Buffet'),
+('Carros e limousines'),
+('Chocolateiro'),
+('Churrasqueiro'),
+('Confeiteiro'),
+('Decorador'),
+('DJ'),
+('Equipamento para festas'),
+('Florista'),
+('Food Truck'),
+('Fotografia'),
+('Garçons e copeiras'),
+('Recepcionistas e Cerimonialistas'),
+('Segurança'),
+('Sommelier'),
+('Ônibus balada');
+
+INSERT INTO tbtipo(nometipo)
+VALUES('Casamento'),
+('Churrasco'),
+('Festa de Aniversário'),
+('Evento Corporativo'),
+('Exposição'),
+('Batizado'),
+('Show'),
+('Comemoração comum'),
+('Evento Religioso'),
+('Outro');
