@@ -35,17 +35,25 @@ idtipo INT PRIMARY KEY Not null AUTO_INCREMENT,
 nometipo VARCHAR(100) Not null
 );
 
+CREATE TABLE tbcidade(
+idcidade INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nomecidade VARCHAR(150)
+)
+
 CREATE TABLE  tbprojeto(
 idprojeto int PRIMARY KEY Not null AUTO_INCREMENT,
 codcliente INT Not null,
 FOREIGN KEY (codcliente) REFERENCES tbusuario (idusuario),
 codtipo INT Not null,
 FOREIGN KEY (codtipo) REFERENCES tbtipo (idtipo),
+codcidade INT,
+FOREIGN KEY (codcidade) REFERENCES tbcidade(idcidade),
+tituloprojeto VARCHAR(100) not null,
 horainicioprojeto TIME Not null,
 horafimprojeto TIME Not null,
 dataprojeto DATE Not null,
 qtdpessoas INTEGER Not null,
-cidadeprojeto VARCHAR(100) Not NULL,
+
 descricaoprojeto VARCHAR(2000) null
 );
 
@@ -106,3 +114,42 @@ VALUES('Casamento'),
 ('Comemoração comum'),
 ('Evento Religioso'),
 ('Outro');
+
+INSERT INTO tbcidade(nomecidade)
+VALUES ('Adolfo'), 
+('Bady Bassit'), 
+('Bálsamo'), 
+('Cedral'), 
+('Guapiaçu'), 
+('Ibirá'), 
+('Icém'), 
+('Ipiguá'), 
+('Irapuã'), 
+('Jaci'), 
+('José Bonifácio'), 
+('Macaubal'), 
+('Mendonça'), 
+('Mirassol'), 
+('Mirassolândia'), 
+('Monte Aprazível'), 
+('Neves Paulista'), 
+('Nipoã'), 
+('Nova Aliança'), 
+('Nova Granada'), 
+('Olímpia'), 
+('Onda Verde'), 
+('Orindiúva'), 
+('Palestina'), 
+('Paulo de Faria'), 
+('Planalto'), 
+('Poloni'), 
+('Potirendaba'), 
+('Sales'), 
+('São José do Rio Preto'), 
+('Severínia'), 
+('Tanabi'), 
+('Ubarana'), 
+('Uchoa'), 
+('União Paulista'), 
+('Urupês'),
+('Zacarias');
