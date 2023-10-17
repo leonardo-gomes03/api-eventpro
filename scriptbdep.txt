@@ -53,7 +53,6 @@ horainicioprojeto TIME Not null,
 horafimprojeto TIME Not null,
 dataprojeto DATE Not null,
 qtdpessoas INTEGER Not null,
-
 descricaoprojeto VARCHAR(2000) null
 );
 

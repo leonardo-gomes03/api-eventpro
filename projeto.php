@@ -5,8 +5,9 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Consulta SQL para selecionar todos os projetos com seus serviços
-      $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario, ps.codservico
+      $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario, c.nomecidade, ps.codservico
               FROM tbprojeto pr
+              INNER JOIN tbcidade c on pr.codcidade = c.idcidade
               INNER JOIN tbtipo t ON pr.codtipo = t.idtipo
               INNER JOIN tbprojetoservico ps ON pr.idprojeto = ps.codprojeto
               INNER JOIN tbservico s ON ps.codservico = s.idservico
@@ -27,8 +28,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "idprojeto" => $row["idprojeto"],
               "codcliente" => $row["codcliente"],
               "nomeusuario" => $row["nomeusuario"],
+              "codcidade" => $row["codcidade"],
+              "nomecidade" => $row["nomecidade"],
               "codtipo" => $row["codtipo"],
               "nometipo" => $row["nometipo"],
+              "tituloprojeto" => $row["tituloprojeto"],
               "horainicioprojeto" => $row["horainicioprojeto"],
               "horafimprojeto" => $row["horafimprojeto"],
               "dataprojeto" => $row["dataprojeto"],
@@ -61,27 +65,30 @@ switch ($_SERVER['REQUEST_METHOD']) {
       if (
         isset($data->codcliente) &&
         isset($data->codtipo) &&
+        isset($data->codcidade) &&
+        isset($data->tituloprojeto) &&
         isset($data->horainicioprojeto) &&
         isset($data->horafimprojeto) &&
         isset($data->dataprojeto) &&
-        isset($data->cidadeprojeto) &&
+        isset($data->qtdpessoas) &&
         isset($data->codservico)
       ) {
         // Dados recebidos
         $codcliente = $data->codcliente;
         $codtipo = $data->codtipo;
+        $codcidade = $data->codcidade;
+        $tituloprojeto= $data->tituloprojeto;
         $horainicioprojeto = $data->horainicioprojeto;
         $horafimprojeto = $data->horafimprojeto;
         $dataprojeto = $data->dataprojeto;
-        $cidadeprojeto = $data->cidadeprojeto;
+        $qtdpessoas = $data->qtdpessoas;
 
         // Campos opcionais
         $descricaoprojeto = isset($data->descricaoprojeto) ? $data->descricaoprojeto : null;
-        $qtdpessoas = isset($data->qtdpessoas) ? $data->qtdpessoas : null;
 
         // Prepara e executa a consulta SQL para inserir o projeto
-        $sql = "INSERT INTO tbprojeto (codcliente, codtipo, horainicioprojeto, horafimprojeto, dataprojeto, descricaoprojeto, qtdpessoas, cidadeprojeto) 
-                VALUES ($codcliente, $codtipo, '$horainicioprojeto', '$horafimprojeto', '$dataprojeto', '$descricaoprojeto', $qtdpessoas, '$cidadeprojeto')";
+        $sql = "INSERT INTO tbprojeto (codcliente, codtipo, codcidade, tituloprojeto, horainicioprojeto, horafimprojeto, dataprojeto, descricaoprojeto, qtdpessoas) 
+                VALUES ($codcliente, $codtipo, $codcidade, '$tituloprojeto', '$horainicioprojeto', '$horafimprojeto', '$dataprojeto', '$descricaoprojeto', $qtdpessoas)";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de freelancer inserido com sucesso
@@ -120,6 +127,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       if (
         isset($data->idprojeto) &&
         isset($data->codcliente) &&
+        isset($data->codtipo) &&
         isset($data->codtipo) &&
         isset($data->horainicioprojeto) &&
         isset($data->horafimprojeto) &&
