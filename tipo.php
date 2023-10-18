@@ -24,6 +24,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         echo json_encode(array("message" => "Nenhum registro encontrado."));
       }
     }
+    break;
   default:
     echo json_encode(array("message" => "Metodo nao registrado")); //Mensagem Padrao
     break;
