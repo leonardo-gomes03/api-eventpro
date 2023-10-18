@@ -1,17 +1,17 @@
 POST /usuario.php
 parametros: {
 	"nomeusuario"
-        "datanascusuario"
-        "telefoneusuario"
-        "generousuario"
-        "emailusuario"
-        "cpfusuario"
-        "senhausuario"
-        "statususuario"
-        "freelancerusuario"
-        "fotoperfilusuario"
-        "experienciausuario"
-        "codservico"
+  "datanascusuario"
+  "telefoneusuario"
+  "generousuario"
+  "emailusuario"
+  "cpfusuario"
+  "senhausuario"
+  "statususuario"
+  "freelancerusuario"
+  "fotoperfilusuario"
+  "experienciausuario"
+  "codservico"
 }
 podem estar vazios: experienciausuario, fotoperfilusuario
 
@@ -20,18 +20,18 @@ GET /usuario.php
 parametros: {} // nenhum/vazio
 reposta: [
 {
-        "idusuario": "number",
-        "nomeusuario": "string",
-        "datanascusuario": "data",
-        "telefoneusuario": "string",
-        "generousuario": "string",
-        "emailusuario": "string",
-        "cpfusuario": "string",
-        "senhausuario": "string",
-        "statususuario": "number",
-        "freelancerusuario": "number",
-        "fotoperfilusuario": "blob",
-        "experienciausuario": "string"
+  "idusuario": "number",
+  "nomeusuario": "string",
+  "datanascusuario": "data",
+  "telefoneusuario": "string",
+  "generousuario": "string",
+  "emailusuario": "string",
+  "cpfusuario": "string",
+  "senhausuario": "string",
+  "statususuario": "number",
+  "freelancerusuario": "number",
+  "fotoperfilusuario": "blob",
+  "experienciausuario": "string"
 }
 ]
 
@@ -39,17 +39,17 @@ PUT /usuario.php
 parametros: {
 	"idusuario"
 	"nomeusuario"
-        "datanascusuario"
-        "telefoneusuario"
-        "generousuario"
-        "emailusuario"
-        "cpfusuario"
-        "senhausuario"
-        "statususuario"
-        "freelancerusuario"
-        "fotoperfilusuario"
-        "experienciausuario"
-        "codservico"
+  "datanascusuario"
+  "telefoneusuario"
+  "generousuario"
+  "emailusuario"
+  "cpfusuario"
+  "senhausuario"
+  "statususuario"
+  "freelancerusuario"
+  "fotoperfilusuario"
+  "experienciausuario"
+  "codservico"
 }
 podem estar vazios: experienciausuario, fotoperfilusuario
 
@@ -58,18 +58,16 @@ DELETE /usuario.php
 parametros: {idusuario}
 
 
-
-
 POST /projeto.php
 parametros: {
 	"codcliente"
-        "codtipo"
-        "horainicioprojeto"
-        "horafimprojeto"
-        "dataprojeto"
-        "qtdpessoas"
-        "cidadeprojeto"
-        "descricaoprojeto"
+  "codtipo"
+  "horainicioprojeto"
+  "horafimprojeto"
+  "dataprojeto"
+  "qtdpessoas"
+  "cidadeprojeto"
+  "descricaoprojeto"
 	"codservico"
 }
 podem estar vazios: descricaoprojeto
@@ -79,17 +77,17 @@ GET /projeto.php
 parametros: {} // nenhum/vazio
 reposta: [
 {
-        "idprojeto": "number",
-        "codcliente": "number",
+  "idprojeto": "number",
+  "codcliente": "number",
 	"nomeusuario": "string",
-        "codtipo": "number",
+  "codtipo": "number",
 	"nometipo": "string",
-        "horainicioprojeto": "time",
-        "horafimprojeto": "time",
-        "dataprojeto": "date",
-        "qtdpessoas": "number",
-        "cidadeprojeto": "string",
-        "descricaoprojeto": "string",
+  "horainicioprojeto": "time",
+  "horafimprojeto": "time",
+  "dataprojeto": "date",
+  "qtdpessoas": "number",
+  "cidadeprojeto": "string",
+  "descricaoprojeto": "string",
 	"codservico": "number",
 	"nomeservico": "string"
 }
@@ -100,13 +98,13 @@ PUT /projeto.php
 parametros: {
 	"idprojeto"
 	"codcliente"
-        "codtipo"
-        "horainicioprojeto"
-        "horafimprojeto"
-        "dataprojeto"
-        "qtdpessoas"
-        "cidadeprojeto"
-        "descricaoprojeto"
+  "codtipo"
+  "horainicioprojeto"
+  "horafimprojeto"
+  "dataprojeto"
+  "qtdpessoas"
+  "cidadeprojeto"
+  "descricaoprojeto"
 	"codservico"
 }
 podem estar vazios: descricaoprojeto
@@ -120,14 +118,14 @@ parametros: {idprojeto}
 POST /proposta.php
 parametros: {
 	"codprojeto"
-        "codfreelancer"
-        "codservico"
-        "statusproposta"
-        "valorproposta"
-        "descricaoproposta"
-        "notaavaliacao"
-        "comentarioavaliacao"
-        "fotoavaliacao"
+  "codfreelancer"
+  "codservico"
+  "statusproposta"
+  "valorproposta"
+  "descricaoproposta"
+  "notaavaliacao"
+  "comentarioavaliacao"
+  "fotoavaliacao"
 }
 podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
 
@@ -137,17 +135,17 @@ parametros: {}
 reposta: [
 {
 	"idproposta": "number",
-        "codprojeto": "number",
-        "codfreelancer": "number",
+  "codprojeto": "number",
+  "codfreelancer": "number",
 	"nomeusuario": "string",
-        "codservico": "number",
+  "codservico": "number",
 	"nomeservico": "string",
-        "statusproposta": "string",
-        "valorproposta": "number",
-        "descricaoprposta": "string",
-        "notaavaliacao": "number",
-        "comentarioavaliacao": "string",
-        "fotoavaliacao": "blob"
+  "statusproposta": "string",
+  "valorproposta": "number",
+  "descricaoprposta": "string",
+  "notaavaliacao": "number",
+  "comentarioavaliacao": "string",
+  "fotoavaliacao": "blob"
 }
 ]
 
@@ -155,14 +153,14 @@ PUT /proposta.php
 parametros: {
 	"idprojeto"
 	"codprojeto"
-        "codfreelancer":
-        "codservico"
-        "statusproposta"
-        "valorproposta"
-        "descricaoprposta"
-        "notaavaliacao"
-        "comentarioavaliacao"
-        "fotoavaliacao"
+  "codfreelancer":
+  "codservico"
+  "statusproposta"
+  "valorproposta"
+  "descricaoprposta"
+  "notaavaliacao"
+  "comentarioavaliacao"
+  "fotoavaliacao"
 }
 podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
 
@@ -170,7 +168,9 @@ DELETE /proposta.php?idproposta="number"
 reposta: [
 {
 	Proposta exclúida com sucesso
+}
 ]
+
 
 
 
@@ -187,7 +187,7 @@ reposta: [
 	"cpfusuario": "string",
 	"senhausuario": "string",
 	"freelancerusuario": "number",
-        "statususuario": "number",
+  "statususuario": "number",
 	"fotoperfilusuario": "blob",
 	"nomeservico": [
 		{
