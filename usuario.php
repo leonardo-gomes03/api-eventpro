@@ -35,6 +35,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       if (
         isset($data->nomeusuario) &&
         isset($data->datanascusuario) &&
+        isset($data->username) &&
         isset($data->telefoneusuario) &&
         isset($data->generousuario) &&
         isset($data->emailusuario) &&
@@ -45,6 +46,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       ) {
         // Dados do usuário recebidos
         $nomeusuario = $data->nomeusuario;
+        $username = $data->username;
         $datanascusuario = $data->datanascusuario;
         $telefoneusuario = $data->telefoneusuario;
         $generousuario = $data->generousuario;
@@ -58,8 +60,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $fotoperfilusuario = isset($data->fotoperfilusuario) ? $data->fotoperfilusuario : null;
 
         // Prepara e executa a consulta SQL para inserir o usuário
-        $sql = "INSERT INTO tbusuario (nomeusuario, datanascusuario, telefoneusuario, generousuario, experienciausuario, emailusuario, cpfusuario, senhausuario, statususuario, freelancerusuario, fotoperfilusuario) 
-            VALUES ('$nomeusuario', '$datanascusuario', '$telefoneusuario', '$generousuario', '$experienciausuario', '$emailusuario', '$cpfusuario', '$senhausuario', '1', $freelancerusuario, '$fotoperfilusuario')";
+        $sql = "INSERT INTO tbusuario (nomeusuario, username, datanascusuario, telefoneusuario, generousuario, experienciausuario, emailusuario, cpfusuario, senhausuario, statususuario, freelancerusuario, fotoperfilusuario) 
+            VALUES ('$nomeusuario', '$username', '$datanascusuario', '$telefoneusuario', '$generousuario', '$experienciausuario', '$emailusuario', '$cpfusuario', '$senhausuario', '1', $freelancerusuario, '$fotoperfilusuario')";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de usuário inserido com sucesso
@@ -98,6 +100,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       // Verifica se os dados estão presentes e são válidos
       if (
         isset($data->nomeusuario) &&
+        isset($data->username) &&
         isset($data->datanascusuario) &&
         isset($data->telefoneusuario) &&
         isset($data->generousuario) &&
@@ -109,6 +112,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Dados do usuário recebidos
         $idusuario = substr($_SERVER["PATH_INFO"], 1);
         $nomeusuario = $data->nomeusuario;
+        $username = $data->username;
         $datanascusuario = $data->datanascusuario;
         $telefoneusuario = $data->telefoneusuario;
         $generousuario = $data->generousuario;
@@ -124,6 +128,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Prepara e executa a consulta SQL para atualizar o usuário
         $sql = "UPDATE tbusuario 
                     SET nomeusuario = '$nomeusuario', 
+                        username = '$username', 
                         datanascusuario = '$datanascusuario', 
                         telefoneusuario = '$telefoneusuario', 
                         generousuario = '$generousuario', 

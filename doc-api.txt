@@ -1,6 +1,7 @@
 POST /usuario.php
 parametros: {
 	"nomeusuario"
+  "username"
   "datanascusuario"
   "telefoneusuario"
   "generousuario"
@@ -22,6 +23,7 @@ reposta: [
 {
   "idusuario": "number",
   "nomeusuario": "string",
+  "username": "string",
   "datanascusuario": "data",
   "telefoneusuario": "string",
   "generousuario": "string",
@@ -39,6 +41,7 @@ PUT /usuario.php
 parametros: {
 	"idusuario"
 	"nomeusuario"
+  "username",
   "datanascusuario"
   "telefoneusuario"
   "generousuario"
@@ -240,4 +243,11 @@ reposta: [
 }
 ]
 
-
+GET /cidade.php
+parametros: {} // nenhum/vazio
+reposta: [
+{
+	"idcidade": "number",
+	"nomecidade": "string"
+}
+]

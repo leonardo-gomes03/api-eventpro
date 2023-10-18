@@ -5,6 +5,7 @@ USE bdeventpro;
 CREATE TABLE tbusuario(
 idusuario INT Not null PRIMARY KEY AUTO_INCREMENT,
 nomeusuario VARCHAR(100) Not null,
+username VARCHAR(25) NOT NULL UNIQUE,
 datanascusuario DATE Not null,
 telefoneusuario CHAR(14) Not null,
 generousuario CHAR(1) Not null,
