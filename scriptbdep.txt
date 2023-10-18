@@ -38,7 +38,7 @@ nometipo VARCHAR(100) Not null
 CREATE TABLE tbcidade(
 idcidade INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 nomecidade VARCHAR(150)
-)
+);
 
 CREATE TABLE  tbprojeto(
 idprojeto int PRIMARY KEY Not null AUTO_INCREMENT,
