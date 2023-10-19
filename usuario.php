@@ -5,10 +5,10 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Consulta SQL para recuperar dados da tabela tbusuario e, se freelancerusuario for 1, fazer um JOIN com tbfreelancerservico
-      $idusuario = isset($_GET['idusuario']);
+      $username = isset($_GET['username']);
 
-      if (strlen($idusuario) > 0) {
-        $sql = "SELECT * from tbusuario where idusuario = '$_GET[idusuario]'";
+      if (strlen($username) > 0) {
+        $sql = "SELECT * from tbusuario where username = '$_GET[username]'";
 
         // Executa a consulta SQL
         $result = $conn->query($sql);
