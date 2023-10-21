@@ -38,7 +38,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "dataprojeto" => $row["dataprojeto"],
               "descricaoprojeto" => $row["descricaoprojeto"],
               "qtdpessoas" => $row["qtdpessoas"],
-              "cidadeprojeto" => $row["cidadeprojeto"],
               "codservico" => array(),
               "nomeservico" => array()
             );
@@ -128,13 +127,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
         isset($data->idprojeto) &&
         isset($data->codcliente) &&
         isset($data->codtipo) &&
-        isset($data->codtipo) &&
+        isset($data->codcidade) &&
+        isset($data->tituloprojeto) &&
         isset($data->horainicioprojeto) &&
         isset($data->horafimprojeto) &&
         isset($data->dataprojeto) &&
         isset($data->descricaoprojeto) &&
         isset($data->qtdpessoas) &&
-        isset($data->cidadeprojeto) &&
         isset($data->codservico)
       ) {
 
@@ -146,15 +145,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
           $idprojeto = $data->idprojeto;
           $codcliente = $data->codcliente;
           $codtipo = $data->codtipo;
+          $codcidade = $data->codcidade;
+          $tituloprojeto = $data->tituloprojeto;
           $horainicioprojeto = $data->horainicioprojeto;
           $horafimprojeto = $data->horafimprojeto;
           $dataprojeto = $data->dataprojeto;
           $descricaoprojeto = $data->descricaoprojeto;
           $qtdpessoas = $data->qtdpessoas;
-          $cidadeprojeto = $data->cidadeprojeto;
 
           // Prepara e executa a consulta SQL para atualizar o projeto
-          $sql = "UPDATE tbprojeto SET codcliente = '$codcliente', codtipo = '$codtipo', horainicioprojeto = '$horainicioprojeto', horafimprojeto = '$horafimprojeto', dataprojeto = '$dataprojeto', descricaoprojeto = '$descricaoprojeto', qtdpessoas = '$qtdpessoas', cidadeprojeto = '$cidadeprojeto' WHERE idprojeto = $idprojeto";
+          $sql = "UPDATE tbprojeto SET codcliente = '$codcliente', codtipo = '$codtipo', codcidade = '$codcidade', tituloprojeto = '$tituloprojeto', horainicioprojeto = '$horainicioprojeto', horafimprojeto = '$horafimprojeto', dataprojeto = '$dataprojeto', descricaoprojeto = '$descricaoprojeto', qtdpessoas = '$qtdpessoas' WHERE idprojeto = $idprojeto";
 
           if ($conn->query($sql) !== TRUE) {
             throw new Exception("Erro ao atualizar projeto: " . $conn->error);
