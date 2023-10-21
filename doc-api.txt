@@ -17,7 +17,7 @@ parametros: {
 podem estar vazios: experienciausuario, fotoperfilusuario
 
 
-GET /usuario.php
+GET /usuario.php filtros adicionais ?idusuario=:idusuario & username=:username
 parametros: {} // nenhum/vazio
 reposta: [
 {
@@ -36,24 +36,6 @@ reposta: [
   "experienciausuario": "string"
 }
 ]
-
-GET /usuario.php/:idusuario
-parametros: {} // nenhum/vazio
-reposta: {
-  "idusuario": "number",
-  "nomeusuario": "string",
-  "username": "string",
-  "datanascusuario": "data",
-  "telefoneusuario": "string",
-  "generousuario": "string",
-  "emailusuario": "string",
-  "cpfusuario": "string",
-  "senhausuario": "string",
-  "statususuario": "number",
-  "freelancerusuario": "number",
-  "fotoperfilusuario": "blob",
-  "experienciausuario": "string"
-}
 
 
 PUT /usuario.php
