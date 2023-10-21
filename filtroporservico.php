@@ -4,16 +4,16 @@ require 'settings.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
-      if (isset($_GET['codServico'])) {
-        $codServico = $_GET['codServico'];
+      if (isset($_GET['codservico'])) {
+        $codservico = $_GET['codservico'];
 
+        // Consulta SQL para selecionar projetos com base no código de serviço
+        $sql = "SELECT p.*, c.nomecidade
+              FROM tbprojeto p
+              INNER JOIN tbprojetoservico ps ON p.idprojeto = ps.codprojeto
+              inner join tbcidade c on c.idcidade= p.codcidade
+              WHERE ps.codservico = $codservico";
 
-        $sql = "SELECT p.*
-                FROM tbprojeto p
-                INNER JOIN tbprojetoservico ps ON p.idprojeto = ps.codprojeto
-                WHERE ps.codservico = $codServico";
-
-        // Executa a consulta SQL
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -23,20 +23,22 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $projetos[] = $row;
           }
 
-
           // Retorna os projetos em formato JSON
           echo json_encode($projetos);
         } else {
-          // Não há projetos correspondentes
-          echo json_encode(array("message" => "Nenhum projeto encontrado para o serviço com código: $codServico."));
+          // Não foram encontrados projetos correspondentes ao código de serviço
+          echo json_encode(array("message" => "Nenhum projeto encontrado para este código de serviço."));
         }
+      } else {
+        // Código de serviço ausente ou inválido
+        echo json_encode(array("message" => "Código de serviço ausente ou inválido."));
       }
-      break;
     }
-  default: {
-      echo json_encode(array("message" => "Metodo nao registrado")); //Mensagem Padrao
-      break;
-    }
+    break;
+  default:
+    echo json_encode(array("message" => "Metodo nao registrado")); //Mensagem Padrao
+    break;
+
 
 }
 

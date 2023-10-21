@@ -60,8 +60,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $fotoperfilusuario = isset($data->fotoperfilusuario) ? $data->fotoperfilusuario : null;
 
         // Prepara e executa a consulta SQL para inserir o usuário
-        $sql = "INSERT INTO tbusuario (nomeusuario, username, datanascusuario, telefoneusuario, generousuario, experienciausuario, emailusuario, cpfusuario, senhausuario, statususuario, freelancerusuario, fotoperfilusuario) 
-            VALUES ('$nomeusuario', '$username', '$datanascusuario', '$telefoneusuario', '$generousuario', '$experienciausuario', '$emailusuario', '$cpfusuario', '$senhausuario', '1', $freelancerusuario, '$fotoperfilusuario')";
+        $sql = "INSERT INTO tbusuario (nomeusuario, username, datanascusuario, telefoneusuario, generousuario, emailusuario, cpfusuario, senhausuario, statususuario, freelancerusuario, fotoperfilusuario, experienciausuario) 
+            VALUES ('$nomeusuario', '$username', '$datanascusuario', '$telefoneusuario', '$generousuario', '$emailusuario', '$cpfusuario', '$senhausuario', '1', $freelancerusuario, '$fotoperfilusuario', '$experienciausuario');";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de usuário inserido com sucesso
@@ -106,6 +106,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         isset($data->generousuario) &&
         isset($data->emailusuario) &&
         isset($data->cpfusuario) &&
+        isset($data->senhausuario) &&
         isset($data->statususuario) &&
         isset($data->freelancerusuario)
       ) {
@@ -118,6 +119,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $generousuario = $data->generousuario;
         $emailusuario = $data->emailusuario;
         $cpfusuario = $data->cpfusuario;
+        $senhausuario = $data->senhausuario;
         $statususuario = $data->statususuario;
         $freelancerusuario = $data->freelancerusuario;
 
@@ -132,13 +134,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         datanascusuario = '$datanascusuario', 
                         telefoneusuario = '$telefoneusuario', 
                         generousuario = '$generousuario', 
-                        experienciausuario = '$experienciausuario', 
                         emailusuario = '$emailusuario', 
                         cpfusuario = '$cpfusuario',
+                        senhausuario = '$senhausuario',
                         freelancerusuario= '$freelancerusuario',
                         statususuario = '$statususuario',
-                        fotoperfilusuario = '$fotoperfilusuario' 
-                    WHERE idusuario = $idusuario";
+                        fotoperfilusuario = '$fotoperfilusuario',
+                        experienciausuario = '$experienciausuario'
+                    WHERE idusuario=$idusuario;";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de usuário atualizado com sucesso
