@@ -92,8 +92,12 @@ reposta: [
   "qtdpessoas": "number",
   "cidadeprojeto": "string",
   "descricaoprojeto": "string",
-	"codservico": "number",
-	"nomeservico": "string"
+	"servicos": [
+    {
+      "codservico": ["number"],
+	    "nomeservico": ["string"]
+    }
+  ]
 }
 ]
 

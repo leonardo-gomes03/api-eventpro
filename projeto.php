@@ -38,14 +38,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "dataprojeto" => $row["dataprojeto"],
               "descricaoprojeto" => $row["descricaoprojeto"],
               "qtdpessoas" => $row["qtdpessoas"],
-              "codservico" => array(),
-              "nomeservico" => array()
+              "servicos" => array(),
+              // "codservico" => array(),
+              // "nomeservico" => array()
             );
           }
 
           // Adicione as informações do serviço a este projeto
-          $projetos[$idprojeto]["nomeservico"][] = $row["nomeservico"];
-          $projetos[$idprojeto]["codservico"][] = $row["codservico"];
+          $projetos[$idprojeto]["servicos"][] = array("codservico" => $row["codservico"], "nomeservico" => $row["nomeservico"]);
         }
 
         // Retorna os projetos em formato JSON
@@ -76,7 +76,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $codcliente = $data->codcliente;
         $codtipo = $data->codtipo;
         $codcidade = $data->codcidade;
-        $tituloprojeto= $data->tituloprojeto;
+        $tituloprojeto = $data->tituloprojeto;
         $horainicioprojeto = $data->horainicioprojeto;
         $horafimprojeto = $data->horafimprojeto;
         $dataprojeto = $data->dataprojeto;
