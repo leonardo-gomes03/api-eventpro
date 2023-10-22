@@ -5,7 +5,7 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Consulta SQL para selecionar todos os projetos com seus serviços
-      $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario, c.nomecidade, ps.codservico
+      $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario, u.fotoperfilusuario, c.nomecidade, ps.codservico
               FROM tbprojeto pr
               INNER JOIN tbcidade c on pr.codcidade = c.idcidade
               INNER JOIN tbtipo t ON pr.codtipo = t.idtipo
@@ -28,6 +28,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "idprojeto" => $row["idprojeto"],
               "codcliente" => $row["codcliente"],
               "nomeusuario" => $row["nomeusuario"],
+              "fotoperfilusuario" => $row["fotoperfilusuario"],
               "codcidade" => $row["codcidade"],
               "nomecidade" => $row["nomecidade"],
               "codtipo" => $row["codtipo"],
