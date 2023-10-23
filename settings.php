@@ -12,19 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 // Conexão com o banco de dados (substitua pelas suas credenciais)
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "bdeventpro";
-
-$servername = "mysql://root:NnAiBg69Q4lNQaywazG9@containers-us-west-111.railway.app:6371/railway";
+$servername = "localhost";
 $username = "root";
-$password = "NnAiBg69Q4lNQaywazG9";
-$dbname = "railway";
-$port = "6371";
+$password = "";
+$dbname = "bdeventpro";
+
+// $servername = "mysql://root:NnAiBg69Q4lNQaywazG9@containers-us-west-111.railway.app:6371/railway";
+// $username = "root";
+// $password = "NnAiBg69Q4lNQaywazG9";
+// $dbname = "railway";
+// $port = "6371";
 
 // Cria a conexão
-$conn = new mysqli($servername, $username, $password, $dbname, $port);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verifica a conexão
 if ($conn->connect_error) {
