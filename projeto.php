@@ -6,12 +6,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Consulta SQL para selecionar todos os projetos com seus serviços
       $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario, u.fotoperfilusuario, c.nomecidade, ps.codservico
-              FROM tbprojeto pr
-              INNER JOIN tbcidade c on pr.codcidade = c.idcidade
-              INNER JOIN tbtipo t ON pr.codtipo = t.idtipo
-              INNER JOIN tbprojetoservico ps ON pr.idprojeto = ps.codprojeto
-              INNER JOIN tbservico s ON ps.codservico = s.idservico
-              INNER JOIN tbusuario u ON pr.codcliente=u.idusuario";
+      FROM tbprojeto pr
+      INNER JOIN tbcidade c ON pr.codcidade = c.idcidade
+      INNER JOIN tbtipo t ON pr.codtipo = t.idtipo
+      INNER JOIN tbprojetoservico ps ON pr.idprojeto = ps.codprojeto
+      INNER JOIN tbservico s ON ps.codservico = s.idservico
+      INNER JOIN tbusuario u ON pr.codcliente = u.idusuario
+      ORDER BY pr.datahorapublicacao DESC";
 
       $result = $conn->query($sql);
 
@@ -34,9 +35,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "codtipo" => $row["codtipo"],
               "nometipo" => $row["nometipo"],
               "tituloprojeto" => $row["tituloprojeto"],
-              "horainicioprojeto" => $row["horainicioprojeto"],
-              "horafimprojeto" => $row["horafimprojeto"],
-              "dataprojeto" => $row["dataprojeto"],
+              "datahorainicio" => $row["datahorainicio"],
+              "datahorafim" => $row["datahorafim"],
+              "datahorapublicacao" => $row["datahorapublicacao"],
               "descricaoprojeto" => $row["descricaoprojeto"],
               "qtdpessoas" => $row["qtdpessoas"],
               "servicos" => array(),
@@ -67,9 +68,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         isset($data->codtipo) &&
         isset($data->codcidade) &&
         isset($data->tituloprojeto) &&
-        isset($data->horainicioprojeto) &&
-        isset($data->horafimprojeto) &&
-        isset($data->dataprojeto) &&
+        isset($data->datahorainicio) &&
+        isset($data->datahorafim) &&
         isset($data->qtdpessoas) &&
         isset($data->codservico)
       ) {
@@ -78,17 +78,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $codtipo = $data->codtipo;
         $codcidade = $data->codcidade;
         $tituloprojeto = $data->tituloprojeto;
-        $horainicioprojeto = $data->horainicioprojeto;
-        $horafimprojeto = $data->horafimprojeto;
-        $dataprojeto = $data->dataprojeto;
+        $datahorainicio = $data->datahorainicio;
+        $datahorafim = $data->datahorafim;
         $qtdpessoas = $data->qtdpessoas;
 
         // Campos opcionais
         $descricaoprojeto = isset($data->descricaoprojeto) ? $data->descricaoprojeto : null;
 
         // Prepara e executa a consulta SQL para inserir o projeto
-        $sql = "INSERT INTO tbprojeto (codcliente, codtipo, codcidade, tituloprojeto, horainicioprojeto, horafimprojeto, dataprojeto, descricaoprojeto, qtdpessoas) 
-                VALUES ($codcliente, $codtipo, $codcidade, '$tituloprojeto', '$horainicioprojeto', '$horafimprojeto', '$dataprojeto', '$descricaoprojeto', $qtdpessoas)";
+        $sql = "INSERT INTO tbprojeto (codcliente, codtipo, codcidade, tituloprojeto, datahorainicio, datahorafim, datahorapublicacao, descricaoprojeto, qtdpessoas) 
+                VALUES ($codcliente, $codtipo, $codcidade, '$tituloprojeto', '$datahorainicio', '$datahorafim', NOW(), '$descricaoprojeto', $qtdpessoas)";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de freelancer inserido com sucesso
@@ -130,9 +129,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         isset($data->codtipo) &&
         isset($data->codcidade) &&
         isset($data->tituloprojeto) &&
-        isset($data->horainicioprojeto) &&
-        isset($data->horafimprojeto) &&
-        isset($data->dataprojeto) &&
+        isset($data->datahorainicio) &&
+        isset($data->datahorafim) &&
         isset($data->descricaoprojeto) &&
         isset($data->qtdpessoas) &&
         isset($data->codservico)
@@ -148,14 +146,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
           $codtipo = $data->codtipo;
           $codcidade = $data->codcidade;
           $tituloprojeto = $data->tituloprojeto;
-          $horainicioprojeto = $data->horainicioprojeto;
-          $horafimprojeto = $data->horafimprojeto;
-          $dataprojeto = $data->dataprojeto;
+          $datahorainicio = $data->datahorainicio;
+          $datahorafim = $data->datahorafim;
           $descricaoprojeto = $data->descricaoprojeto;
           $qtdpessoas = $data->qtdpessoas;
 
           // Prepara e executa a consulta SQL para atualizar o projeto
-          $sql = "UPDATE tbprojeto SET codcliente = '$codcliente', codtipo = '$codtipo', codcidade = '$codcidade', tituloprojeto = '$tituloprojeto', horainicioprojeto = '$horainicioprojeto', horafimprojeto = '$horafimprojeto', dataprojeto = '$dataprojeto', descricaoprojeto = '$descricaoprojeto', qtdpessoas = '$qtdpessoas' WHERE idprojeto = $idprojeto";
+          $sql = "UPDATE tbprojeto SET codcliente = '$codcliente', codtipo = '$codtipo', codcidade = '$codcidade', tituloprojeto = '$tituloprojeto', datahorainicio = '$datahorainicio', datahorafim = '$datahorafim', datahorapublicacao = NOW(), descricaoprojeto = '$descricaoprojeto', qtdpessoas = '$qtdpessoas' WHERE idprojeto = $idprojeto";
 
           if ($conn->query($sql) !== TRUE) {
             throw new Exception("Erro ao atualizar projeto: " . $conn->error);

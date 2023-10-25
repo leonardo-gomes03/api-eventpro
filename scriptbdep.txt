@@ -50,9 +50,9 @@ FOREIGN KEY (codtipo) REFERENCES tbtipo (idtipo),
 codcidade INT,
 FOREIGN KEY (codcidade) REFERENCES tbcidade(idcidade),
 tituloprojeto VARCHAR(100) not null,
-horainicioprojeto TIME Not null,
-horafimprojeto TIME Not null,
-dataprojeto DATE Not null,
+datahorainicio DATETIME Not null,
+datahorafim DATETIME Not null,
+datahorapublicacao DATETIME NOT NULL,
 qtdpessoas INTEGER Not null,
 descricaoprojeto VARCHAR(2000) null
 );
