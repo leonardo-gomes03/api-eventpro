@@ -152,7 +152,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
           $qtdpessoas = $data->qtdpessoas;
 
           // Prepara e executa a consulta SQL para atualizar o projeto
-          $sql = "UPDATE tbprojeto SET codcliente = '$codcliente', codtipo = '$codtipo', codcidade = '$codcidade', tituloprojeto = '$tituloprojeto', datahorainicio = '$datahorainicio', datahorafim = '$datahorafim', datahorapublicacao = NOW(), descricaoprojeto = '$descricaoprojeto', qtdpessoas = '$qtdpessoas' WHERE idprojeto = $idprojeto";
+          $sql = "UPDATE tbprojeto SET codcliente = '$codcliente', codtipo = '$codtipo', codcidade = '$codcidade', tituloprojeto = '$tituloprojeto', datahorainicio = '$datahorainicio', datahorafim = '$datahorafim', descricaoprojeto = '$descricaoprojeto', qtdpessoas = '$qtdpessoas' WHERE idprojeto = $idprojeto";
 
           if ($conn->query($sql) !== TRUE) {
             throw new Exception("Erro ao atualizar projeto: " . $conn->error);

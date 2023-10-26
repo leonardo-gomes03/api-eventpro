@@ -66,9 +66,8 @@ POST /projeto.php
 parametros: {
 	"codcliente"
   "codtipo"
-  "horainicioprojeto"
-  "horafimprojeto"
-  "dataprojeto"
+  "datahorainicio"
+  "datahorafim"
   "qtdpessoas"
   "cidadeprojeto"
   "descricaoprojeto"
@@ -86,9 +85,9 @@ reposta: [
 	"nomeusuario": "string",
   "codtipo": "number",
 	"nometipo": "string",
-  "horainicioprojeto": "time",
-  "horafimprojeto": "time",
-  "dataprojeto": "date",
+  "datahorainicio": "time",
+  "datahorafim": "time",
+  "datahorapublicacao": "date_time",
   "qtdpessoas": "number",
   "cidadeprojeto": "string",
   "descricaoprojeto": "string",
@@ -107,8 +106,8 @@ parametros: {
 	"idprojeto"
 	"codcliente"
   "codtipo"
-  "horainicioprojeto"
-  "horafimprojeto"
+  "datahorainicio"
+  "datahorafim"
   "dataprojeto"
   "qtdpessoas"
   "cidadeprojeto"
