@@ -4,6 +4,29 @@ require 'settings.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
+
+      $idusuario = isset($_GET['idusuario']);
+
+      if (strlen($idusuario) > 0) {
+        $sql = "SELECT p.*, u.nomeusuario, s.nomeservico
+        FROM tbproposta p
+        INNER JOIN tbusuario u ON p.codfreelancer=u.idusuario
+        INNER JOIN tbservico s ON s.idservico=p.codservico where u.idusuario = '$_GET[idusuario]'";
+
+        // Executa a consulta SQL
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          $response = $result->fetch_assoc();
+
+          // Retorna os resultados como JSON
+          echo json_encode($response);
+        } else {
+          // Não foram encontrados registros correspondentes
+          echo json_encode(array("message" => "Nenhum registro encontrado."));
+        }
+        return;
+      }
       // Prepara e executa a consulta SQL para recuperar as propostas
       $sql = "SELECT p.*, u.nomeusuario, s.nomeservico
               FROM tbproposta p

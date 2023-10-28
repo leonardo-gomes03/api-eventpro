@@ -137,7 +137,7 @@ parametros: {
 podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
 
 
-GET /proposta.php
+GET /proposta.php?idusuario="number"
 parametros: {}
 reposta: [
 {
