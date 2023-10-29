@@ -28,10 +28,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         return;
       }
       // Prepara e executa a consulta SQL para recuperar as propostas
-      $sql = "SELECT p.*, u.nomeusuario, s.nomeservico
+      $sql = "SELECT  p.*, u.nomeusuario, s.nomeservico, pj.tituloprojeto
               FROM tbproposta p
               INNER JOIN tbusuario u ON p.codfreelancer=u.idusuario
-              INNER JOIN tbservico s ON s.idservico=p.codservico ";
+              INNER JOIN tbservico s ON s.idservico=p.codservico
+              INNER JOIN tbprojeto pj ON p.codprojeto = pj.idprojeto ";
 
       $result = $conn->query($sql);
 
@@ -43,16 +44,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
           $proposta = array(
             "idproposta" => $row["idproposta"],
             "codprojeto" => $row["codprojeto"],
+            "tituloprojeto" => $row["tituloprojeto"],
             "codfreelancer" => $row["codfreelancer"],
             "nomeusuario" => $row["nomeusuario"],
             "codservico" => $row["codservico"],
             "nomeservico" => $row["nomeservico"],
             "statusproposta" => $row["statusproposta"],
             "descricaoproposta" => $row["descricaoproposta"],
-            "valorproposta" => $row["valorproposta"],
-            "notaavaliacao" => $row["notaavaliacao"],
-            "comentarioavaliacao" => $row["comentarioavaliacao"],
-            "fotoavaliacao" => $row["fotoavaliacao"]
+            "valorproposta" => $row["valorproposta"]
           );
           array_push($propostas, $proposta);
         }
@@ -87,13 +86,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         // Verifica se outros campos opcionais estão definidos
         $descricaoproposta = isset($data->descricaoproposta) ? $data->descricaoproposta : null;
-        $notaavaliacao = isset($data->notaavaliacao) ? $data->notaavaliacao : null;
-        $comentarioavaliacao = isset($data->comentarioavaliacao) ? $data->comentarioavaliacao : null;
-        $fotoavaliacao = isset($data->fotoavaliacao) ? $data->fotoavaliacao : null;
 
         // Prepara e executa a consulta SQL para inserir a proposta
-        $sql = "INSERT INTO tbproposta (codprojeto, codfreelancer, codservico, statusproposta, descricaoproposta, notaavaliacao, comentarioavaliacao, valorproposta, fotoavaliacao) 
-                VALUES ('$codprojeto', '$codfreelancer', '$codservico', '$statusproposta', '$descricaoproposta', '$notaavaliacao', '$comentarioavaliacao', '$valorproposta', '$fotoavaliacao')";
+        $sql = "INSERT INTO tbproposta (codprojeto, codfreelancer, codservico, statusproposta, valorproposta, descricaoproposta) 
+                VALUES ($codprojeto, $codfreelancer, $codservico, '$statusproposta', '$valorproposta', '$descricaoproposta')";
 
         if ($conn->query($sql) === TRUE) {
           // Registro inserido com sucesso
@@ -134,9 +130,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 
         // Campos opcionais
-        $comentarioavaliacao = isset($data->comentarioavaliacao) ? $data->comentarioavaliacao : null;
-        $notaavaliacao = isset($data->notaavaliacao) ? $data->notaavaliacao : null;
-        $fotoavaliacao = isset($data->fotoavaliacao) ? $data->fotoavaliacao : null;
         $descricaoproposta = isset($data->descricaoproposta) ? $data->descricaoproposta : null;
 
         // Prepara e executa a consulta SQL para atualizar o usuário
@@ -146,10 +139,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 codservico = '$codservico', 
                 statusproposta = '$statusproposta', 
                 valorproposta = '$valorproposta', 
-                descricaoproposta = '$descricaoproposta', 
-                notaavaliacao = '$notaavaliacao', 
-                comentarioavaliacao = '$comentarioavaliacao', 
-                fotoavaliacao = '$fotoavaliacao' 
+                descricaoproposta = '$descricaoproposta'
             WHERE idproposta = $idproposta";
 
         if ($conn->query($sql) === TRUE) {
