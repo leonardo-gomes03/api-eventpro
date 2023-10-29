@@ -74,11 +74,30 @@ codservico INT NOT NULL,
 FOREIGN KEY (codservico) REFERENCES tbfreelancerservico (codservico),
 statusproposta VARCHAR(100) Not NULL,
 valorproposta decimal(10,2) Not NULL,
-descricaoproposta VARCHAR(1000) NULL,
-notaavaliacao DECIMAL(2,2) null,
-comentarioavaliacao VARCHAR(2000) null,
-fotoavaliacao blob null
+descricaoproposta VARCHAR(1000) NULL
 );
+
+CREATE TABLE tbavaliacao(
+idavaliacao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+codprojeto INT,
+FOREIGN KEY (codprojeto) REFERENCES tbprojeto (idprojeto),
+codcliente INT,
+FOREIGN KEY (codcliente) REFERENCES tbusuario (idusuario),
+codfreelancer INT,
+FOREIGN KEY (codfreelancer) REFERENCES tbusuario (idusuario),
+notaavaliacao DECIMAL(2,2) NOT NULL,
+comentarioavaliacao VARCHAR(2000) NULL,
+fotoavaliacao BLOB NULL
+);
+
+CREATE TABLE tbdenuncia{
+iddenuncia INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+codautordenuncia INT,
+FOREIGN KEY (codautordenuncia) REFERENCES tbusuario (idusuario), 
+coddenunciado INT,
+FOREIGN KEY (coddenunciado) REFERENCES tbusuario (idusuario), 
+comentariodenuncia VARCHAR(5000) NOT NULL
+}
 
 INSERT INTO tbservico(nomeservico)
 VALUES('Animador de festas'),
