@@ -85,19 +85,19 @@ codcliente INT,
 FOREIGN KEY (codcliente) REFERENCES tbusuario (idusuario),
 codfreelancer INT,
 FOREIGN KEY (codfreelancer) REFERENCES tbusuario (idusuario),
-notaavaliacao DECIMAL(2,2) NOT NULL,
+notaavaliacao DECIMAL(3,1) NOT NULL,
 comentarioavaliacao VARCHAR(2000) NULL,
 fotoavaliacao BLOB NULL
 );
 
-CREATE TABLE tbdenuncia{
+CREATE TABLE tbdenuncia (
 iddenuncia INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 codautordenuncia INT,
 FOREIGN KEY (codautordenuncia) REFERENCES tbusuario (idusuario), 
 coddenunciado INT,
 FOREIGN KEY (coddenunciado) REFERENCES tbusuario (idusuario), 
 comentariodenuncia VARCHAR(5000) NOT NULL
-}
+);
 
 INSERT INTO tbservico(nomeservico)
 VALUES('Animador de festas'),

@@ -3,7 +3,7 @@ require 'settings.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET': {
-            // Prepara e executa a consulta SQL para recuperar as propostas
+            // Prepara e executa a consulta SQL para recuperar as avaliacoes
             $sql = "SELECT a.*, c.nomeusuario AS nomecliente, f.nomeusuario AS nomefreelancer
             FROM tbavaliacao a
             INNER JOIN tbusuario c ON a.codcliente = c.idusuario
@@ -12,11 +12,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
-                $propostas = array();
+                $avaliacoes = array();
 
-                // Coleta os dados das propostas em um array
+                // Coleta os dados das avaliacoes em um array
                 while ($row = $result->fetch_assoc()) {
-                    $proposta = array(
+                    $avaliacao = array(
                         "idavaliacao" => $row["idavaliacao"],
                         "codprojeto" => $row["codprojeto"],
                         "codfreelancer" => $row["codfreelancer"],
@@ -27,14 +27,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         "comentarioavaliacao" => $row["comentarioavaliacao"],
                         "fotoavaliacao" => $row["fotoavaliacao"]
                     );
-                    array_push($propostas, $proposta);
+                    array_push($avaliacoes, $avaliacao);
                 }
 
-                // Retorna as propostas como JSON
-                echo json_encode($propostas);
+                // Retorna as avaliacoes como JSON
+                echo json_encode($avaliacoes);
             } else {
-                // Se não houver propostas, retorna uma mensagem de erro
-                $response = array("message" => "Nenhuma proposta encontrada.");
+                // Se não houver avaliacoes, retorna uma mensagem de erro
+                $response = array("message" => "Nenhuma avaliacao encontrada.");
                 echo json_encode($response);
             }
         }
@@ -58,7 +58,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $fotoavaliacao = isset($data->fotoavaliacao) ? "'" . $data->fotoavaliacao . "'" : "NULL";
 
                 $sql = "INSERT INTO tbavaliacao (codprojeto, codcliente, codfreelancer, notaavaliacao, comentarioavaliacao, fotoavaliacao) 
-                    VALUES ($codprojeto, $codcliente, $codfreelancer, $notaavaliacao, $comentarioavaliacao, $fotoavaliacao)";
+                    VALUES ($codprojeto, $codcliente, $codfreelancer, $notaavaliacao, '$comentarioavaliacao', $fotoavaliacao)";
 
                 if ($conn->query($sql) === TRUE) {
                     $response = array("message" => "Avaliação cadastrada com sucesso.");
@@ -114,7 +114,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     echo json_encode($response);
                 } else {
                     // Erro na atualização do usuário
-                    $response = array("message" => "Erro ao atualizar proposta: " . $conn->error);
+                    $response = array("message" => "Erro ao atualizar avaliacao: " . $conn->error);
                     echo json_encode($response);
                 }
             } else {
@@ -141,16 +141,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 if ($conn->query($sql) === TRUE) {
                     // Registro excluído com sucesso
-                    $response = array("message" => "Proposta excluída com sucesso.");
+                    $response = array("message" => "avaliacao excluída com sucesso.");
                     echo json_encode($response);
                 } else {
                     // Erro na exclusão
-                    $response = array("message" => "Erro ao excluir proposta: " . $conn->error);
+                    $response = array("message" => "Erro ao excluir avaliacao: " . $conn->error);
                     echo json_encode($response);
                 }
             } else {
                 // ID inválido ou ausente
-                $response = array("message" => "ID de proposta inválido ou ausente.");
+                $response = array("message" => "ID de avaliacao inválido ou ausente.");
                 echo json_encode($response);
             } // Aqui voce coloca todo o codigo do DELETE (Delete)
         }
