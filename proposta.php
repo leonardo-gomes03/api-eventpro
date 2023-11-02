@@ -8,19 +8,35 @@ switch ($_SERVER['REQUEST_METHOD']) {
       $idusuario = isset($_GET['idusuario']);
 
       if (strlen($idusuario) > 0) {
-        $sql = "SELECT p.*, u.nomeusuario, s.nomeservico
-        FROM tbproposta p
-        INNER JOIN tbusuario u ON p.codfreelancer=u.idusuario
-        INNER JOIN tbservico s ON s.idservico=p.codservico where u.idusuario = '$_GET[idusuario]'";
+        $sql = "SELECT  p.*, u.nomeusuario, s.nomeservico, pj.tituloprojeto
+                FROM tbproposta p
+                INNER JOIN tbusuario u ON p.codfreelancer=u.idusuario
+                INNER JOIN tbservico s ON s.idservico=p.codservico
+                INNER JOIN tbprojeto pj ON p.codprojeto = pj.idprojeto where u.idusuario = '$_GET[idusuario]'";
 
-        // Executa a consulta SQL
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-          $response = $result->fetch_assoc();
+          $propostas = array();
 
-          // Retorna os resultados como JSON
-          echo json_encode($response);
+          // Coleta os dados das propostas em um array
+          while ($row = $result->fetch_assoc()) {
+            $proposta = array(
+              "idproposta" => $row["idproposta"],
+              "codprojeto" => $row["codprojeto"],
+              "codfreelancer" => $row["codfreelancer"],
+              "nomeusuario" => $row["nomeusuario"],
+              "codservico" => $row["codservico"],
+              "nomeservico" => $row["nomeservico"],
+              "statusproposta" => $row["statusproposta"],
+              "descricaoproposta" => $row["descricaoproposta"],
+              "valorproposta" => $row["valorproposta"]
+            );
+            array_push($propostas, $proposta);
+          }
+
+          // Retorna as propostas como JSON
+          echo json_encode($propostas);
         } else {
           // Não foram encontrados registros correspondentes
           echo json_encode(array("message" => "Nenhum registro encontrado."));

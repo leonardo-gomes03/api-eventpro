@@ -130,9 +130,6 @@ parametros: {
   "statusproposta"
   "valorproposta"
   "descricaoproposta"
-  "notaavaliacao"
-  "comentarioavaliacao"
-  "fotoavaliacao"
 }
 podem estar vazios: descricaoproposta, notaavaliacao, comentarioavaliacao, fotoavaliacao
 
