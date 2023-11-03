@@ -36,6 +36,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $user = array(
               "idusuario" => $idusuario,
               "nomeusuario" => $row["nomeusuario"],
+              "username" => $row["username"],
               "datanascusuario" => $row["datanascusuario"],
               "telefoneusuario" => $row["telefoneusuario"],
               "generousuario" => $row["generousuario"],
@@ -45,6 +46,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "statususuario" => $row["statususuario"],
               "freelancerusuario" => $row["freelancerusuario"],
               "fotoperfilusuario" => $row["fotoperfilusuario"],
+              "biousuario" => $row["biousuario"],
               "nomeservico" => array(
                 array(
                   "codservico" => $row["codservico"],
