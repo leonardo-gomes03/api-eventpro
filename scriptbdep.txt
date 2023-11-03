@@ -15,7 +15,7 @@ senhausuario VARCHAR(20) Not null,
 statususuario BOOLEAN NOT NULL,
 freelancerusuario boolean Not NULL,
 fotoperfilusuario blob NULL,
-experienciausuario VARCHAR(5000) NULL
+biousuario VARCHAR(5000) NULL
 
 );
 
@@ -74,7 +74,7 @@ codservico INT NOT NULL,
 FOREIGN KEY (codservico) REFERENCES tbfreelancerservico (codservico),
 statusproposta VARCHAR(100) Not NULL,
 valorproposta decimal(10,2) Not NULL,
-descricaoproposta VARCHAR(1000) NULL
+descricaoproposta VARCHAR(2000) NULL
 );
 
 CREATE TABLE tbavaliacao(

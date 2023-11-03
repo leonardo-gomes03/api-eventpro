@@ -96,12 +96,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $freelancerusuario = $data->freelancerusuario;
 
         // Campos opcionais
-        $experienciausuario = isset($data->experienciausuario) ? $data->experienciausuario : null;
+        $biousuario = isset($data->biousuario) ? $data->biousuario : null;
         $fotoperfilusuario = isset($data->fotoperfilusuario) ? $data->fotoperfilusuario : null;
 
         // Prepara e executa a consulta SQL para inserir o usuário
-        $sql = "INSERT INTO tbusuario (nomeusuario, username, datanascusuario, telefoneusuario, generousuario, emailusuario, cpfusuario, senhausuario, statususuario, freelancerusuario, fotoperfilusuario, experienciausuario) 
-            VALUES ('$nomeusuario', '$username', '$datanascusuario', '$telefoneusuario', '$generousuario', '$emailusuario', '$cpfusuario', '$senhausuario', '1', $freelancerusuario, '$fotoperfilusuario', '$experienciausuario');";
+        $sql = "INSERT INTO tbusuario (nomeusuario, username, datanascusuario, telefoneusuario, generousuario, emailusuario, cpfusuario, senhausuario, statususuario, freelancerusuario, fotoperfilusuario, biousuario) 
+            VALUES ('$nomeusuario', '$username', '$datanascusuario', '$telefoneusuario', '$generousuario', '$emailusuario', '$cpfusuario', '$senhausuario', '1', $freelancerusuario, '$fotoperfilusuario', '$biousuario');";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de usuário inserido com sucesso
@@ -165,7 +165,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $freelancerusuario = $data->freelancerusuario;
 
         // Campos opcionais
-        $experienciausuario = isset($data->experienciausuario) ? $data->experienciausuario : null;
+        $biousuario = isset($data->biousuario) ? $data->biousuario : null;
         $fotoperfilusuario = isset($data->fotoperfilusuario) ? $data->fotoperfilusuario : null;
 
         // Prepara e executa a consulta SQL para atualizar o usuário
@@ -180,7 +180,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         freelancerusuario= '$freelancerusuario',
                         statususuario = '$statususuario',
                         fotoperfilusuario = '$fotoperfilusuario',
-                        experienciausuario = '$experienciausuario'
+                        biousuario = '$biousuario'
                     WHERE idusuario=$idusuario;";
 
         if ($conn->query($sql) === TRUE) {
