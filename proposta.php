@@ -44,7 +44,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         return;
       }
       // Prepara e executa a consulta SQL para recuperar as propostas
-      $sql = "SELECT  p.*, u.nomeusuario, s.nomeservico, pj.tituloprojeto
+      $sql = "SELECT  p.*, u.*, s.nomeservico, pj.tituloprojeto
               FROM tbproposta p
               INNER JOIN tbusuario u ON p.codfreelancer=u.idusuario
               INNER JOIN tbservico s ON s.idservico=p.codservico
@@ -63,6 +63,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "tituloprojeto" => $row["tituloprojeto"],
             "codfreelancer" => $row["codfreelancer"],
             "nomeusuario" => $row["nomeusuario"],
+            "username" => $row["username"],
+            "datanascusuario" => $row["datanascusuario"],
+            "telefoneusuario" => $row["telefoneusuario"],
+            "generousuario" => $row["generousuario"],
+            "emailusuario" => $row["emailusuario"],
+            "cpfusuario" => $row["cpfusuario"],
+            "senhausuario" => $row["senhausuario"],
+            "statususuario" => $row["statususario"],
+            "fotoperfilusuario" => $row["fotoperfilusuario"],
+            "biousuario" => $row["biousuario"],
             "codservico" => $row["codservico"],
             "nomeservico" => $row["nomeservico"],
             "statusproposta" => $row["statusproposta"],
