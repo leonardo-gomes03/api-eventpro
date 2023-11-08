@@ -71,7 +71,7 @@ FOREIGN KEY (codprojeto) REFERENCES tbprojeto (idprojeto),
 codfreelancer INT NOT NULL,
 FOREIGN KEY (codfreelancer) REFERENCES tbusuario (idusuario),
 codservico INT NOT NULL,
-FOREIGN KEY (codservico) REFERENCES tbfreelancerservico (codservico),
+FOREIGN KEY (codservico) REFERENCES tbservico (idservico),
 statusproposta VARCHAR(100) Not NULL,
 valorproposta decimal(10,2) Not NULL,
 descricaoproposta VARCHAR(2000) NULL

@@ -70,7 +70,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "emailusuario" => $row["emailusuario"],
             "cpfusuario" => $row["cpfusuario"],
             "senhausuario" => $row["senhausuario"],
-            "statususuario" => $row["statususario"],
+            "statususuario" => $row["statususuario"],
             "fotoperfilusuario" => $row["fotoperfilusuario"],
             "biousuario" => $row["biousuario"],
             "codservico" => $row["codservico"],
