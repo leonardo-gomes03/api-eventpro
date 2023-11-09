@@ -11,12 +11,19 @@ switch ($_SERVER['REQUEST_METHOD']) {
               INNER JOIN tbprojeto pj ON p.codprojeto = pj.idprojeto ";
 
 
-      //Verifica se o parametro id usuario foi passado na requisição
-      $idusuario = isset($_GET['idusuario']);
-      if (strlen($idusuario) > 0) {
+      $freeancerId = isset($_GET['idusuario']);
+      $clienteId = isset($_GET['idcliente']);
 
-        //Se foi passado, usa o where pra fazer uma busca com o parametro informado
-        $sql .= "WHERE p.codfreelancer = $_GET[idusuario]";
+      if ($freelancerId || $clienteId) {
+        $sql .= "WHERE 1 = 1 ";
+
+        if ($freelancerId) {
+          $sql .= " AND p.codfreelancer = $freelancerId ";
+        }
+
+        if ($clienteId) {
+          $sql .= " AND pj.codcliente = $clienteId ";
+        }
       }
 
       $result = $conn->query($sql);
@@ -192,4 +199,3 @@ switch ($_SERVER['REQUEST_METHOD']) {
 }
 
 $conn->close();
-?>
