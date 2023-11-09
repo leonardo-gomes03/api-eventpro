@@ -4,51 +4,20 @@ require 'settings.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
-
-      $idusuario = isset($_GET['idusuario']);
-
-      if (strlen($idusuario) > 0) {
-        $sql = "SELECT  p.*, u.nomeusuario, s.nomeservico, pj.tituloprojeto
-                FROM tbproposta p
-                INNER JOIN tbusuario u ON p.codfreelancer=u.idusuario
-                INNER JOIN tbservico s ON s.idservico=p.codservico
-                INNER JOIN tbprojeto pj ON p.codprojeto = pj.idprojeto where u.idusuario = '$_GET[idusuario]'";
-
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-          $propostas = array();
-
-          // Coleta os dados das propostas em um array
-          while ($row = $result->fetch_assoc()) {
-            $proposta = array(
-              "idproposta" => $row["idproposta"],
-              "codprojeto" => $row["codprojeto"],
-              "codfreelancer" => $row["codfreelancer"],
-              "nomeusuario" => $row["nomeusuario"],
-              "codservico" => $row["codservico"],
-              "nomeservico" => $row["nomeservico"],
-              "statusproposta" => $row["statusproposta"],
-              "descricaoproposta" => $row["descricaoproposta"],
-              "valorproposta" => $row["valorproposta"]
-            );
-            array_push($propostas, $proposta);
-          }
-
-          // Retorna as propostas como JSON
-          echo json_encode($propostas);
-        } else {
-          // Não foram encontrados registros correspondentes
-          echo json_encode(array("message" => "Nenhum registro encontrado."));
-        }
-        return;
-      }
-      // Prepara e executa a consulta SQL para recuperar as propostas
       $sql = "SELECT  p.*, u.*, s.nomeservico, pj.tituloprojeto
               FROM tbproposta p
               INNER JOIN tbusuario u ON p.codfreelancer=u.idusuario
               INNER JOIN tbservico s ON s.idservico=p.codservico
               INNER JOIN tbprojeto pj ON p.codprojeto = pj.idprojeto ";
+
+
+      //Verifica se o parametro id usuario foi passado na requisição
+      $idusuario = isset($_GET['idusuario']);
+      if (strlen($idusuario) > 0) {
+
+        //Se foi passado, usa o where pra fazer uma busca com o parametro informado
+        $sql .= "WHERE p.codfreelancer = $_GET[idusuario]";
+      }
 
       $result = $conn->query($sql);
 
@@ -69,7 +38,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "generousuario" => $row["generousuario"],
             "emailusuario" => $row["emailusuario"],
             "cpfusuario" => $row["cpfusuario"],
-            "senhausuario" => $row["senhausuario"],
+            // "senhausuario" => $row["senhausuario"],
             "statususuario" => $row["statususuario"],
             "fotoperfilusuario" => $row["fotoperfilusuario"],
             "biousuario" => $row["biousuario"],

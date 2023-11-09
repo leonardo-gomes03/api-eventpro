@@ -20,7 +20,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $senhausuario = $data->senhausuario;
 
         // Prepara e executa a consulta SQL para inserir o usuário
-        $sql = "SELECT idusuario,nomeusuario, username, datanascusuario, telefoneusuario, generousuario, experienciausuario, emailusuario, cpfusuario, statususuario, freelancerusuario, fotoperfilusuario
+        $sql = "SELECT idusuario,nomeusuario, username, datanascusuario, telefoneusuario, generousuario, biousuario, emailusuario, cpfusuario, statususuario, freelancerusuario, fotoperfilusuario
                 FROM tbusuario WHERE emailusuario = '$emailusuario' AND senhausuario = '$senhausuario'";
 
         // Executa a consulta SQL
