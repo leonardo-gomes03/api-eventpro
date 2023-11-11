@@ -41,7 +41,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "nomeusuario" => $row["nomeusuario"],
             "username" => $row["username"],
             "datanascusuario" => $row["datanascusuario"],
-            "telefoneusuario"=> $row["telefoneusuario"],
+            "telefoneusuario" => $row["telefoneusuario"],
             "contato" => $row["contato"],
             "generousuario" => $row["generousuario"],
             "emailusuario" => $row["emailusuario"],
@@ -78,7 +78,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         isset($data->codfreelancer) &&
         isset($data->codservico) &&
         isset($data->contato) &&
-        isset($data->statusproposta) &&
         isset($data->valorproposta)
       ) {
         // Dados recebidos
@@ -86,7 +85,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $codfreelancer = $data->codfreelancer;
         $codservico = $data->codservico;
         $contato = $data->contato;
-        $statusproposta = $data->statusproposta;
         $valorproposta = $data->valorproposta;
 
         // Verifica se outros campos opcionais estão definidos
@@ -124,7 +122,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         isset($data->codservico) &&
         isset($data->contato) &&
         isset($data->statusproposta) &&
-        isset($data->valorproposta) 
+        isset($data->valorproposta)
 
       ) {
         // Dados do usuário recebidos
