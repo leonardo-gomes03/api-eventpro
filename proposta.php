@@ -41,7 +41,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "nomeusuario" => $row["nomeusuario"],
             "username" => $row["username"],
             "datanascusuario" => $row["datanascusuario"],
-            "telefoneusuario" => $row["telefoneusuario"],
+            "contato" => $row["contato"],
             "generousuario" => $row["generousuario"],
             "emailusuario" => $row["emailusuario"],
             "cpfusuario" => $row["cpfusuario"],
@@ -75,14 +75,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
       if (
         isset($data->codprojeto) &&
         isset($data->codfreelancer) &&
-        isset($data->statusproposta) &&
         isset($data->codservico) &&
+        isset($data->contato) &&
+        isset($data->statusproposta) &&
         isset($data->valorproposta)
       ) {
         // Dados recebidos
         $codprojeto = $data->codprojeto;
         $codfreelancer = $data->codfreelancer;
         $codservico = $data->codservico;
+        $contato = $data->contato;
         $statusproposta = $data->statusproposta;
         $valorproposta = $data->valorproposta;
 
@@ -90,8 +92,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $descricaoproposta = isset($data->descricaoproposta) ? $data->descricaoproposta : null;
 
         // Prepara e executa a consulta SQL para inserir a proposta
-        $sql = "INSERT INTO tbproposta (codprojeto, codfreelancer, codservico, statusproposta, valorproposta, descricaoproposta) 
-                VALUES ($codprojeto, $codfreelancer, $codservico, '$statusproposta', '$valorproposta', '$descricaoproposta')";
+        $sql = "INSERT INTO tbproposta (codprojeto, codfreelancer, codservico, contato, statusproposta, valorproposta, descricaoproposta) 
+                VALUES ($codprojeto, $codfreelancer, $codservico, '$contato', 'Em análise', '$valorproposta', '$descricaoproposta')";
 
         if ($conn->query($sql) === TRUE) {
           // Registro inserido com sucesso
@@ -117,15 +119,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
       if (
         isset($data->idproposta) &&
         isset($data->codprojeto) &&
-        isset($data->codservico) &&
         isset($data->codfreelancer) &&
-        isset($data->valorproposta) &&
-        isset($data->statusproposta)
+        isset($data->codservico) &&
+        isset($data->contato) &&
+        isset($data->statusproposta) &&
+        isset($data->valorproposta) 
+
       ) {
         // Dados do usuário recebidos
         $idproposta = $data->idproposta;
         $codprojeto = $data->codprojeto;
         $codservico = $data->codservico;
+        $contatos = $data->contatos;
         $codfreelancer = $data->codfreelancer;
         $valorproposta = $data->valorproposta;
         $statusproposta = $data->statusproposta;
@@ -139,6 +144,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             SET codprojeto = '$codprojeto', 
                 codfreelancer = '$codfreelancer', 
                 codservico = '$codservico', 
+                contato = '$contato',
                 statusproposta = '$statusproposta', 
                 valorproposta = '$valorproposta', 
                 descricaoproposta = '$descricaoproposta'
