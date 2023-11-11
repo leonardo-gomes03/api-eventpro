@@ -11,18 +11,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
               INNER JOIN tbprojeto pj ON p.codprojeto = pj.idprojeto ";
 
 
-      $freeancerId = isset($_GET['idusuario']);
+      $freelancerId = isset($_GET['idusuario']);
       $clienteId = isset($_GET['idcliente']);
 
       if ($freelancerId || $clienteId) {
         $sql .= "WHERE 1 = 1 ";
 
         if ($freelancerId) {
-          $sql .= " AND p.codfreelancer = $freelancerId ";
+          $sql .= " AND p.codfreelancer = $_GET[idusuario] ";
         }
 
         if ($clienteId) {
-          $sql .= " AND pj.codcliente = $clienteId ";
+          $sql .= " AND pj.codcliente = $_GET[idcliente] ";
         }
       }
 
@@ -199,3 +199,4 @@ switch ($_SERVER['REQUEST_METHOD']) {
 }
 
 $conn->close();
+?>
