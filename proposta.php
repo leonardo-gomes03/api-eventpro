@@ -13,6 +13,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
       $freelancerId = isset($_GET['idusuario']);
       $clienteId = isset($_GET['idcliente']);
+      $status = isset($_GET['status']);
 
       if ($freelancerId || $clienteId) {
         $sql .= "WHERE 1 = 1 ";
@@ -24,7 +25,23 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if ($clienteId) {
           $sql .= " AND pj.codcliente = $_GET[idcliente] ";
         }
+
+        if ($status) {
+          if ($_GET['status'] == "analise") {
+            $sql .= " AND p.statusproposta = 'Em análise'";
+          }
+
+          if ($_GET['status'] == "aceita") {
+            $sql .= " AND p.statusproposta = 'Aceita'";
+          }
+
+          if ($_GET['status'] == "recusada") {
+            $sql .= " AND p.statusproposta = 'Recusada'";
+          }
+        }
       }
+
+      $sql .= " ORDER BY p.idproposta DESC";
 
       $result = $conn->query($sql);
 
@@ -114,24 +131,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
       // Recebe os dados JSON da solicitação POST
       $data = json_decode(file_get_contents("php://input"));
 
+      $_SERVER['REQUEST_URI_PATH'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+      $pathSegments = explode('/', $_SERVER['REQUEST_URI_PATH']);
+      $idproposta = $pathSegments[count($pathSegments) - 1];
+
       // Verifica se os dados estão presentes e são válidos
       if (
-        isset($data->idproposta) &&
-        isset($data->codprojeto) &&
-        isset($data->codfreelancer) &&
-        isset($data->codservico) &&
-        isset($data->contato) &&
-        isset($data->statusproposta) &&
-        isset($data->valorproposta)
-
+        isset($idproposta) &&
+        isset($data->statusproposta)
       ) {
         // Dados do usuário recebidos
-        $idproposta = $data->idproposta;
-        $codprojeto = $data->codprojeto;
-        $codservico = $data->codservico;
-        $contato = $data->contato;
-        $codfreelancer = $data->codfreelancer;
-        $valorproposta = $data->valorproposta;
         $statusproposta = $data->statusproposta;
 
 
@@ -140,14 +149,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         // Prepara e executa a consulta SQL para atualizar o usuário
         $sql = "UPDATE tbproposta 
-            SET codprojeto = '$codprojeto', 
-                codfreelancer = '$codfreelancer', 
-                codservico = '$codservico', 
-                contato = '$contato',
-                statusproposta = '$statusproposta', 
-                valorproposta = '$valorproposta', 
-                descricaoproposta = '$descricaoproposta'
-            WHERE idproposta = $idproposta";
+                SET statusproposta = '$statusproposta'
+                WHERE idproposta = $idproposta";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de usuário atualizado com sucesso
