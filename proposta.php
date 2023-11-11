@@ -41,6 +41,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "nomeusuario" => $row["nomeusuario"],
             "username" => $row["username"],
             "datanascusuario" => $row["datanascusuario"],
+            "telefoneusuario"=> $row["telefoneusuario"],
             "contato" => $row["contato"],
             "generousuario" => $row["generousuario"],
             "emailusuario" => $row["emailusuario"],
