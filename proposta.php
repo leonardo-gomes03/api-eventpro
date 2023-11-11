@@ -130,7 +130,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $idproposta = $data->idproposta;
         $codprojeto = $data->codprojeto;
         $codservico = $data->codservico;
-        $contatos = $data->contatos;
+        $contato = $data->contato;
         $codfreelancer = $data->codfreelancer;
         $valorproposta = $data->valorproposta;
         $statusproposta = $data->statusproposta;
