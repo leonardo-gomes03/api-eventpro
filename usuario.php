@@ -173,9 +173,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       // Recebe os dados JSON da solicitação POST
       $data = json_decode(file_get_contents("php://input"));
 
-      $_SERVER['REQUEST_URI_PATH'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-      $pathSegments = explode('/', $_SERVER['REQUEST_URI_PATH']);
-      $idusuario = $pathSegments[count($pathSegments) - 1];
+      $idusuario = isset($_GET['idusuario']);
 
       // Verifica se os dados estão presentes e são válidos
       if (
@@ -207,7 +205,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //Valida Email
         $sql = "SELECT * FROM tbusuario u 
                 WHERE u.emailusuario = '$emailusuario'
-                AND NOT u.idusuario = $idusuario";
+                AND NOT u.idusuario = $_GET[idusuario]";
 
         $result = $conn->query($sql);
 
@@ -220,7 +218,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //Valida Username
         $sql = "SELECT * FROM tbusuario u 
                 WHERE u.username = '$username'
-                AND NOT u.idusuario = $idusuario";
+                AND NOT u.idusuario = $_GET[idusuario]";
 
 
         $result = $conn->query($sql);
@@ -234,7 +232,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //Valida CPF
         $sql = "SELECT * FROM tbusuario u 
         WHERE u.cpfusuario = '$cpfusuario'
-        AND NOT u.idusuario = $idusuario";
+        AND NOT u.idusuario = $_GET[idusuario]";
 
 
         $result = $conn->query($sql);
@@ -258,7 +256,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         statususuario = '$statususuario',
                         fotoperfilusuario = '$fotoperfilusuario',
                         biousuario = '$biousuario'
-                    WHERE idusuario=$idusuario;";
+                    WHERE idusuario=$_GET[idusuario];";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de usuário atualizado com sucesso
