@@ -64,11 +64,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Não foram encontrados registros correspondentes
         echo json_encode(array("message" => "Nenhum registro encontrado."));
       }
+      break;
     }
-    break;
-  default:
-    echo json_encode(array("message" => "Metodo nao registrado")); //Mensagem Padrao
-    break;
+  case "POST": {
+      $data = json_decode(file_get_contents("php://input"));
+    }
+  default: {
+      echo json_encode(array("message" => "Metodo nao registrado")); //Mensagem Padrao
+      break;
+    }
 }
 
 $conn->close();

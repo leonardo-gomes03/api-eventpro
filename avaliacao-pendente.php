@@ -1,10 +1,9 @@
 <?php
 require 'settings.php';
 
-
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
-      echo json_encode($_SERVER["PATH_INFO"]); // CODIGO GET (Read)
+      echo json_encode(array("message" => "Exemplo Get")); // CODIGO GET (Read)
     }
     break;
   case 'POST': {

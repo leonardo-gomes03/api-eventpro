@@ -4,7 +4,7 @@ require 'settings.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
-      $sql = "SELECT  p.*, u.*, s.nomeservico, pj.tituloprojeto
+      $sql = "SELECT  p.*, u.*, s.nomeservico, pj.tituloprojeto, pj.datahorafim
               FROM tbproposta p
               INNER JOIN tbusuario u ON p.codfreelancer=u.idusuario
               INNER JOIN tbservico s ON s.idservico=p.codservico
@@ -71,7 +71,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "nomeservico" => $row["nomeservico"],
             "statusproposta" => $row["statusproposta"],
             "descricaoproposta" => $row["descricaoproposta"],
-            "valorproposta" => $row["valorproposta"]
+            "valorproposta" => $row["valorproposta"],
+            "datahorafim" => $row["datahorafim"]
           );
           array_push($propostas, $proposta);
         }
