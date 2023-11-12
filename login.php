@@ -40,8 +40,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $response = array("message" => "Dados inválidos ou ausentes.");
         echo json_encode($response);
       }
+      break;
     }
-    break;
 
   default:
     echo json_encode(array("message" => "Metodo nao registrado")); //Mensagem Padrao

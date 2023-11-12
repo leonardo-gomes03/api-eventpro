@@ -5,14 +5,30 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Consulta SQL para selecionar todos os projetos com seus serviços
-      $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario, u.fotoperfilusuario, c.nomecidade, ps.codservico
+      $sql = "SELECT pr.*, t.nometipo, s.nomeservico, u.nomeusuario, u.fotoperfilusuario, c.nomecidade, ps.codservico, u.username
       FROM tbprojeto pr
       INNER JOIN tbcidade c ON pr.codcidade = c.idcidade
       INNER JOIN tbtipo t ON pr.codtipo = t.idtipo
       INNER JOIN tbprojetoservico ps ON pr.idprojeto = ps.codprojeto
       INNER JOIN tbservico s ON ps.codservico = s.idservico
-      INNER JOIN tbusuario u ON pr.codcliente = u.idusuario
-      ORDER BY pr.datahorapublicacao DESC";
+      INNER JOIN tbusuario u ON pr.codcliente = u.idusuario ";
+
+      $freelancerId = isset($_GET['idusuario']);
+      $clienteId = isset($_GET['idcliente']);
+
+      if ($freelancerId || $clienteId) {
+        $sql .= " WHERE 1 = 1 ";
+
+        // if ($freelancerId) {
+        //   $sql .= " AND p.codfreelancer = $_GET[idusuario] ";
+        // }
+
+        if ($clienteId) {
+          $sql .= " AND pr.codcliente = $_GET[idcliente] ";
+        }
+      }
+
+      $sql .= " ORDER BY pr.datahorapublicacao DESC";
 
       $result = $conn->query($sql);
 
@@ -40,6 +56,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
               "datahorapublicacao" => $row["datahorapublicacao"],
               "descricaoprojeto" => $row["descricaoprojeto"],
               "qtdpessoas" => $row["qtdpessoas"],
+              "username" => $row["username"],
               "servicos" => array(),
               // "codservico" => array(),
               // "nomeservico" => array()
