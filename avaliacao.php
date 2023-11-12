@@ -4,7 +4,7 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Prepara e executa a consulta SQL para recuperar as avaliacoes
-      $sql = "SELECT a.*, c.nomeusuario AS nomecliente, c.fotoperfilusuario. f.nomeusuario AS nomefreelancer, pj.tituloprojeto
+      $sql = "SELECT a.*, c.nomeusuario AS nomecliente, c.fotoperfilusuario, f.nomeusuario AS nomefreelancer, pj.tituloprojeto
               FROM tbavaliacao a
               INNER JOIN tbusuario c ON a.codcliente = c.idusuario
               INNER JOIN tbusuario f ON a.codfreelancer = f.idusuario
