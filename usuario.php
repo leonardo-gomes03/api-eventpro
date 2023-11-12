@@ -99,6 +99,42 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $biousuario = isset($data->biousuario) ? $data->biousuario : null;
         $fotoperfilusuario = isset($data->fotoperfilusuario) ? $data->fotoperfilusuario : null;
 
+        //Valida Email
+        $sql = "SELECT * FROM tbusuario u 
+                WHERE u.emailusuario = '$emailusuario'";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          $response = array("message" => "Esse email já está em uso!");
+          echo json_encode($response);
+          return;
+        }
+
+        //Valida Username
+        $sql = "SELECT * FROM tbusuario u 
+                WHERE u.username = '$username'";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          $response = array("message" => "Esse nome de usuario já está em uso!");
+          echo json_encode($response);
+          return;
+        }
+
+        //Valida CPF
+        $sql = "SELECT * FROM tbusuario u 
+        WHERE u.cpfusuario = '$cpfusuario'";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          $response = array("message" => "Esse CPF já está em uso!");
+          echo json_encode($response);
+          return;
+        }
+
         // Prepara e executa a consulta SQL para inserir o usuário
         $sql = "INSERT INTO tbusuario (nomeusuario, username, datanascusuario, telefoneusuario, generousuario, emailusuario, cpfusuario, senhausuario, statususuario, freelancerusuario, fotoperfilusuario, biousuario) 
             VALUES ('$nomeusuario', '$username', '$datanascusuario', '$telefoneusuario', '$generousuario', '$emailusuario', '$cpfusuario', '$senhausuario', '1', $freelancerusuario, '$fotoperfilusuario', '$biousuario');";
@@ -167,6 +203,47 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Campos opcionais
         $biousuario = isset($data->biousuario) ? $data->biousuario : null;
         $fotoperfilusuario = isset($data->fotoperfilusuario) ? $data->fotoperfilusuario : null;
+
+        //Valida Email
+        $sql = "SELECT * FROM tbusuario u 
+                WHERE u.emailusuario = '$emailusuario'
+                AND NOT u.idusuario = $idusuario";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          $response = array("message" => "Esse email já está em uso!");
+          echo json_encode($response);
+          return;
+        }
+
+        //Valida Username
+        $sql = "SELECT * FROM tbusuario u 
+                WHERE u.username = '$username'
+                AND NOT u.idusuario = $idusuario";
+
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          $response = array("message" => "Esse nome de usuario já está em uso!");
+          echo json_encode($response);
+          return;
+        }
+
+        //Valida CPF
+        $sql = "SELECT * FROM tbusuario u 
+        WHERE u.cpfusuario = '$cpfusuario'
+        AND NOT u.idusuario = $idusuario";
+
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          $response = array("message" => "Esse CPF já está em uso!");
+          echo json_encode($response);
+          return;
+        }
 
         // Prepara e executa a consulta SQL para atualizar o usuário
         $sql = "UPDATE tbusuario 
