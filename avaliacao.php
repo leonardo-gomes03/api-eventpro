@@ -4,10 +4,10 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET': {
             // Prepara e executa a consulta SQL para recuperar as avaliacoes
-            $sql = "SELECT a.*, c.nomeusuario AS nomecliente, f.nomeusuario AS nomefreelancer
+            $sql = "SELECT a.*, c.nomeusuario AS nomeavaliador, f.nomeusuario AS nomeavaliado
             FROM tbavaliacao a
-            INNER JOIN tbusuario c ON a.codcliente = c.idusuario
-            INNER JOIN tbusuario f ON a.codfreelancer = f.idusuario";
+            INNER JOIN tbusuario c ON a.codavaliado = c.idusuario
+            INNER JOIN tbusuario f ON a.codavaliador = f.idusuario";
 
             $result = $conn->query($sql);
 
@@ -19,10 +19,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     $avaliacao = array(
                         "idavaliacao" => $row["idavaliacao"],
                         "codprojeto" => $row["codprojeto"],
-                        "codfreelancer" => $row["codfreelancer"],
-                        "nomefreelancer" => $row["nomefreelancer"],
-                        "codcliente" => $row["codcliente"],
-                        "nomecliente" => $row["nomecliente"],
+                        "codavaliador" => $row["codavaliador"],
+                        "nomeavaliador" => $row["nomeavaliado"],
+                        "codavaliado" => $row["codavaliado"],
+                        "nomeavaliado" => $row["nomeavaliador"],
                         "notaavaliacao" => $row["notaavaliacao"],
                         "comentarioavaliacao" => $row["comentarioavaliacao"],
                         "fotoavaliacao" => $row["fotoavaliacao"]
@@ -44,21 +44,21 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
             if (
                 isset($data->codprojeto) &&
-                isset($data->codcliente) &&
-                isset($data->codfreelancer) &&
+                isset($data->codavaliado) &&
+                isset($data->codavaliador) &&
                 isset($data->notaavaliacao)
             ) {
-                $codcliente = $data->codcliente;
+                $codavaliado = $data->codavaliado;
                 $codprojeto = $data->codprojeto;
-                $codfreelancer = $data->codfreelancer;
+                $codavaliador = $data->codavaliador;
                 $notaavaliacao = $data->notaavaliacao;
 
                 // Campos opcionais
                 $comentarioavaliacao = isset($data->comentarioavaliacao) ? "'" . $data->comentarioavaliacao . "'" : "NULL";
                 $fotoavaliacao = isset($data->fotoavaliacao) ? "'" . $data->fotoavaliacao . "'" : "NULL";
 
-                $sql = "INSERT INTO tbavaliacao (codprojeto, codcliente, codfreelancer, notaavaliacao, comentarioavaliacao, fotoavaliacao) 
-                    VALUES ($codprojeto, $codcliente, $codfreelancer, $notaavaliacao, '$comentarioavaliacao', $fotoavaliacao)";
+                $sql = "INSERT INTO tbavaliacao (codprojeto, codavaliado, codavaliador, notaavaliacao, comentarioavaliacao, fotoavaliacao) 
+                    VALUES ($codprojeto, $codavaliado, $codavaliador, $notaavaliacao, '$comentarioavaliacao', $fotoavaliacao)";
 
                 if ($conn->query($sql) === TRUE) {
                     $response = array("message" => "Avaliação cadastrada com sucesso.");
@@ -81,15 +81,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
             if (
                 isset($data->idavaliacao) &&
                 isset($data->codprojeto) &&
-                isset($data->codcliente) &&
-                isset($data->codfreelancer) &&
+                isset($data->codavaliado) &&
+                isset($data->codavaliador) &&
                 isset($data->notaavaliacao)
             ) {
                 // Dados do usuário recebidos
                 $idavaliacao = $data->idavaliacao;
                 $codprojeto = $data->codprojeto;
-                $codcliente = $data->codcliente;
-                $codfreelancer = $data->codfreelancer;
+                $codavaliado = $data->codavaliado;
+                $codavaliador = $data->codavaliador;
                 $notaavaliacao = $data->notaavaliacao;
 
 
@@ -100,8 +100,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 // Prepara e executa a consulta SQL para atualizar o usuário
                 $sql = "UPDATE tbavaliacao 
       SET codprojeto = '$codprojeto', 
-          codfreelancer = '$codfreelancer', 
-          codcliente = '$codcliente', 
+          codavaliador = '$codavaliador', 
+          codavaliado = '$codavaliado', 
           notaavaliacao = '$notaavaliacao', 
           comentarioavaliacao = '$comentarioavaliacao', 
           fotoavaliacao = '$fotoavaliacao'
