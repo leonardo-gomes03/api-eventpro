@@ -9,7 +9,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
       $username = isset($_GET['username']);
 
       if (strlen($idusuario) > 0) {
-        $sql = "SELECT * from tbusuario where idusuario = '$_GET[idusuario]'";
+        $sql = "SELECT tbusuario.*, ROUND((SELECT AVG(notaavaliacao) FROM tbavaliacao), 2) FROM tbavaliacao) as mediaavaliacao
+        FROM tbusuario WHERE idusuario = '$_GET[idusuario]'";
 
         // Executa a consulta SQL
         $result = $conn->query($sql);
