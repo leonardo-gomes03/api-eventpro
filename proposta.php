@@ -15,7 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       $clienteId = isset($_GET['idcliente']);
       $status = isset($_GET['status']);
 
-      if ($freelancerId || $clienteId) {
+      if ($freelancerId || $clienteId || $status) {
         $sql .= "WHERE 1 = 1 ";
 
         if ($freelancerId) {
@@ -132,7 +132,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       // Recebe os dados JSON da solicitação POST
       $data = json_decode(file_get_contents("php://input"));
     
-      $idproposta = isset($_GET['idproposta']);
+      $idproposta = $_GET['idproposta'];
 
       // Verifica se os dados estão presentes e são válidos
       if (
@@ -149,7 +149,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Prepara e executa a consulta SQL para atualizar o usuário
         $sql = "UPDATE tbproposta 
                 SET statusproposta = '$statusproposta'
-                WHERE idproposta = $_GET['idproposta']";
+                WHERE idproposta = $idproposta";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de usuário atualizado com sucesso
