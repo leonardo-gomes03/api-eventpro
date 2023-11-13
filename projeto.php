@@ -15,8 +15,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
       $freelancerId = isset($_GET['idusuario']);
       $clienteId = isset($_GET['idcliente']);
+      $tituloprojeto = isset($_GET['tituloprojeto']);
 
-      if ($freelancerId || $clienteId) {
+      if ($freelancerId || $clienteId | $tituloprojeto) {
         $sql .= " WHERE 1 = 1 ";
 
         // if ($freelancerId) {
@@ -26,9 +27,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if ($clienteId) {
           $sql .= " AND pr.codcliente = $_GET[idcliente] ";
         }
+
+        if ($tituloprojeto) {
+          $sql .= " AND pr.tituloprojeto LIKE '%$_GET[tituloprojeto]%' ";
+        }
       }
 
-      $sql .= " ORDER BY pr.datahorapublicacao DESC";
+      $sql .= " ORDER BY pr.datahorapublicacao DESC ";
 
       $result = $conn->query($sql);
 
