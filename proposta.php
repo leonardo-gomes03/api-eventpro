@@ -131,10 +131,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
   case 'PUT': {
       // Recebe os dados JSON da solicitação POST
       $data = json_decode(file_get_contents("php://input"));
-
-      $_SERVER['REQUEST_URI_PATH'] = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-      $pathSegments = explode('/', $_SERVER['REQUEST_URI_PATH']);
-      $idproposta = $pathSegments[count($pathSegments) - 1];
+    
+      $idproposta = isset($_GET['idproposta']);
 
       // Verifica se os dados estão presentes e são válidos
       if (
@@ -151,7 +149,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Prepara e executa a consulta SQL para atualizar o usuário
         $sql = "UPDATE tbproposta 
                 SET statusproposta = '$statusproposta'
-                WHERE idproposta = $idproposta";
+                WHERE idproposta = $_GET['idproposta']";
 
         if ($conn->query($sql) === TRUE) {
           // Registro de usuário atualizado com sucesso
