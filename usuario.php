@@ -215,6 +215,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       // Recebe os dados JSON da solicitação POST
       $data = json_decode(file_get_contents("php://input"));
 
+
       $idusuario = isset($_GET['idusuario']);
 
       // Verifica se os dados estão presentes e são válidos
