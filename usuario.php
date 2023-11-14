@@ -3,19 +3,94 @@ require 'settings.php';
 
 
 switch ($_SERVER['REQUEST_METHOD']) {
-  case 'GET': {
-      // Consulta SQL para recuperar dados da tabela tbusuario e, se freelancerusuario for 1, fazer um JOIN com tbfreelancerservico
-      $idusuario = isset($_GET['idusuario']);
-      $username = isset($_GET['username']);
+  case 'GET': { {
+        // Consulta SQL para recuperar dados da tabela tbusuario e, se freelancerusuario for 1, fazer um JOIN com tbfreelancerservico
+        $idusuario = isset($_GET['idusuario']);
+        $username = isset($_GET['username']);
 
-      if (strlen($idusuario) > 0) {
-        $sql = "SELECT * from tbusuario where idusuario = '$_GET[idusuario]'";
+        if (strlen($idusuario) > 0) {
+          $sql = "SELECT * from tbusuario where idusuario = '$_GET[idusuario]'";
+
+          // Executa a consulta SQL
+          $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+            $response = $result->fetch_assoc();
+
+            if ($response["freelancerusuario"] == "1") {
+
+              $sqlServicos = "SELECT s.* FROM tbfreelancerservico fs
+                        INNER JOIN tbservico s on s.idservico = fs.codservico
+                        WHERE codfreelancer = {$response['idusuario']}";
+
+              $servicosResult = $conn->query($sqlServicos);
+
+              $servicosArray = array();
+
+              // Adiciona cada serviço ao array
+              while ($row = $servicosResult->fetch_assoc()) {
+                $servicosArray[] = $row;
+              }
+
+              // Adiciona o array de serviços à resposta
+              $response['servicos'] = $servicosArray;
+            }
+
+            // Retorna os resultados como JSON
+            echo json_encode($response);
+          } else {
+            // Não foram encontrados registros correspondentes
+            echo json_encode(array("message" => "Nenhum registro encontrado."));
+          }
+          return;
+        }
+
+        if (strlen($username) > 0) {
+          $sql = "SELECT * FROM tbusuario WHERE username = '$_GET[username]'";
+
+          // Executa a consulta SQL
+          $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+            $response = $result->fetch_assoc();
+
+            $sqlServicos = "SELECT s.* FROM tbfreelancerservico fs
+                        INNER JOIN tbservico s on s.idservico = fs.codservico
+                        WHERE codfreelancer = {$response['idusuario']}";
+
+            $servicosResult = $conn->query($sqlServicos);
+
+            $servicosArray = array();
+
+            // Adiciona cada serviço ao array
+            while ($row = $servicosResult->fetch_assoc()) {
+              $servicosArray[] = $row;
+            }
+
+            // Adiciona o array de serviços à resposta
+            $response['servicos'] = $servicosArray;
+
+            // Retorna os resultados como JSON
+            echo json_encode($response);
+          } else {
+            // Não foram encontrados registros correspondentes
+            echo json_encode(array("message" => "Nenhum registro encontrado."));
+          }
+          return;
+        }
+
+        $sql = "SELECT * from tbusuario";
 
         // Executa a consulta SQL
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-          $response = $result->fetch_assoc();
+          $response = array();
+
+          while ($row = $result->fetch_assoc()) {
+            // Para cada linha retornada, adicione-a à resposta
+            $response[] = $row;
+          }
 
           // Retorna os resultados como JSON
           echo json_encode($response);
@@ -23,47 +98,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
           // Não foram encontrados registros correspondentes
           echo json_encode(array("message" => "Nenhum registro encontrado."));
         }
-        return;
+
       }
-
-      if (strlen($username) > 0) {
-        $sql = "SELECT * from tbusuario where username = '$_GET[username]'";
-
-        // Executa a consulta SQL
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-          $response = $result->fetch_assoc();
-
-          // Retorna os resultados como JSON
-          echo json_encode($response);
-        } else {
-          // Não foram encontrados registros correspondentes
-          echo json_encode(array("message" => "Nenhum registro encontrado."));
-        }
-        return;
-      }
-
-      $sql = "SELECT * from tbusuario";
-
-      // Executa a consulta SQL
-      $result = $conn->query($sql);
-
-      if ($result->num_rows > 0) {
-        $response = array();
-
-        while ($row = $result->fetch_assoc()) {
-          // Para cada linha retornada, adicione-a à resposta
-          $response[] = $row;
-        }
-
-        // Retorna os resultados como JSON
-        echo json_encode($response);
-      } else {
-        // Não foram encontrados registros correspondentes
-        echo json_encode(array("message" => "Nenhum registro encontrado."));
-      }
-
     }
     break;
   case 'POST': {

@@ -4,12 +4,28 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Prepara e executa a consulta SQL para recuperar as avaliacoes
-      $sql = "SELECT a.*, c.nomeusuario AS nomeavaliador, f.nomeusuario AS nomeavaliado, pj.*, p.*
-            FROM tbavaliacao a
-            INNER JOIN tbusuario c ON a.codavaliado = c.idusuario
-            INNER JOIN tbusuario f ON a.codavaliador = f.idusuario
-            INNER JOIN tbprojeto pj ON pj.idprojeto = a.codprojeto
-            INNER JOIN  tbproposta p ON p.idproposta = a.codproposta";
+      $sql = "SELECT a.*, c.nomeusuario AS nomeavaliado, f.fotoperfilusuario AS fotoperfilavaliador, 
+              f.nomeusuario AS nomeavaliador, f.username as usernameavaliador, pj.*, p.*
+              FROM tbavaliacao a
+              INNER JOIN tbusuario c ON a.codavaliado = c.idusuario
+              INNER JOIN tbusuario f ON a.codavaliador = f.idusuario
+              INNER JOIN tbprojeto pj ON pj.idprojeto = a.codprojeto
+              INNER JOIN  tbproposta p ON p.idproposta = a.codproposta";
+
+      $codavaliado = isset($_GET['codavaliado']);
+      $codavaliador = isset($_GET['codavaliador']);
+
+      if ($codavaliado || $codavaliador) {
+        $sql .= " WHERE 1 = 1 ";
+
+        if ($codavaliado) {
+          $sql .= " AND a.codavaliado = $_GET[codavaliado] ";
+        }
+
+        if ($codavaliador) {
+          $sql .= " AND a.codavaliador = $_GET[codavaliador] ";
+        }
+      }
 
       $result = $conn->query($sql);
 
@@ -23,12 +39,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "codprojeto" => $row["codprojeto"],
             "codproposta" => $row["codproposta"],
             "codavaliador" => $row["codavaliador"],
-            "nomeavaliador" => $row["nomeavaliado"],
+            "nomeavaliador" => $row["nomeavaliador"],
+            "usernameavaliador" => $row["usernameavaliador"],
             "codavaliado" => $row["codavaliado"],
-            "nomeavaliado" => $row["nomeavaliador"],
+            "nomeavaliado" => $row["nomeavaliado"],
             "notaavaliacao" => $row["notaavaliacao"],
             "comentarioavaliacao" => $row["comentarioavaliacao"],
-            "fotoavaliacao" => $row["fotoavaliacao"]
+            "fotoavaliacao" => $row["fotoavaliacao"],
+            "fotoperfilavaliador" => $row["fotoperfilavaliador"]
           );
           array_push($avaliacoes, $avaliacao);
         }
