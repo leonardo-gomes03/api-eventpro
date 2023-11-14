@@ -9,7 +9,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $username = isset($_GET['username']);
 
         if (strlen($idusuario) > 0) {
-          $sql = "SELECT * from tbusuario where idusuario = '$_GET[idusuario]'";
+          $sql = "SELECT u.*, AVG(notaavaliacao) as media 
+                  from tbusuario u 
+                  LEFT JOIN tbavaliacao av ON av.codavaliado = u.idusuario
+                  where idusuario = '$_GET[idusuario]'";
 
           // Executa a consulta SQL
           $result = $conn->query($sql);
@@ -46,7 +49,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
 
         if (strlen($username) > 0) {
-          $sql = "SELECT * FROM tbusuario WHERE username = '$_GET[username]'";
+          $sql = "SELECT u.*, AVG(notaavaliacao) as media 
+                  from tbusuario u 
+                  LEFT JOIN tbavaliacao av ON av.codavaliado = u.idusuario
+                  where username = '$_GET[username]'";
 
           // Executa a consulta SQL
           $result = $conn->query($sql);
@@ -302,12 +308,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
             // Atualiza os serviços oferecidos pelo freelancer na tabela tbfreelancerservico
             if (isset($data->codservico) && is_array($data->codservico)) {
               // Primeiro, exclua todos os registros existentes para este usuário
-              $sqlDeleteServicos = "DELETE FROM tbfreelancerservico WHERE codfreelancer = $idusuario";
+              $sqlDeleteServicos = "DELETE FROM tbfreelancerservico WHERE codfreelancer = $_GET[idusuario]";
               $conn->query($sqlDeleteServicos);
 
               // Em seguida, insira os novos registros
               foreach ($data->codservico as $codservico) {
-                $sqlServico = "INSERT INTO tbfreelancerservico (codfreelancer, codservico) VALUES ($idusuario, $codservico)";
+                $sqlServico = "INSERT INTO tbfreelancerservico (codfreelancer, codservico) VALUES ($_GET[idusuario], $codservico)";
                 $conn->query($sqlServico);
               }
             }
