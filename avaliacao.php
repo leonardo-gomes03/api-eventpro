@@ -4,7 +4,7 @@ require 'settings.php';
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET': {
       // Prepara e executa a consulta SQL para recuperar as avaliacoes
-      $sql = "SELECT a.*, c.nomeusuario AS nomeavaliado, f.fotoperfilusuario AS fotoperfilavaliador, 
+      $sql = "SELECT a.*, c.nomeusuario AS nomeavaliado, c.fotoperfilusuario as fotoperfilavaliado, f.fotoperfilusuario AS fotoperfilavaliador, 
               f.nomeusuario AS nomeavaliador, f.username as usernameavaliador, pj.*, p.*
               FROM tbavaliacao a
               INNER JOIN tbusuario c ON a.codavaliado = c.idusuario
@@ -46,7 +46,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "notaavaliacao" => $row["notaavaliacao"],
             "comentarioavaliacao" => $row["comentarioavaliacao"],
             "fotoavaliacao" => $row["fotoavaliacao"],
-            "fotoperfilavaliador" => $row["fotoperfilavaliador"]
+            "fotoperfilavaliador" => $row["fotoperfilavaliador"],
+            "fotoperfilavaliado" => $row["fotoperfilavaliado"],
+            "tituloprojeto" => $row["tituloprojeto"],
           );
           array_push($avaliacoes, $avaliacao);
         }
